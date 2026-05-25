@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "services": "Services",
+    "carriers": "Carriers",
+    "resources": "Resources",
+    "about": "About",
+    "contact": "Contact",
+    "getQuote": "Get a Quote",
+    "loadBoard": "Load Board"
+  },
+  "hero": {
+    "headline": "Reliable Freight Solutions Across North America",
+    "subheadline": "Professional freight brokerage services with USDOT #4398936 | MC-1726540",
+    "cta1": "Get a Quote",
+    "cta2": "Become a Carrier",
+    "badge": "Licensed & Bonded Freight Broker | FMCSA Registered"
+  },
+  "features": {
+    "title": "Why Sea Road Brokerage?",
+    "subtitle": "We combine industry expertise with modern technology to deliver freight solutions that work for your business.",
+    "nationwide": "Nationwide Coverage",
+    "support": "24/7 Support",
+    "rates": "Competitive Rates",
+    "tracking": "Real-time Tracking",
+    "licensed": "Licensed & Insured",
+    "payment": "Quick Payment"
+  },
+  "footer": {
+    "company": "Professional freight brokerage services connecting shippers and carriers across North America.",
+    "services": "Services",
+    "quickLinks": "Quick Links",
+    "contact": "Contact Us",
+    "copyright": "Sea Road Brokerage INC. All rights reserved.",
+    "licensed": "Licensed & Bonded | FMCSA Registered"
+  },
+  "quote": {
+    "title": "Request a Quote",
+    "subtitle": "Fill out the form below and our team will respond within 2 business hours.",
+    "submit": "Submit Quote Request",
+    "success": "Quote submitted successfully!",
+    "error": "Failed to submit quote. Please try again."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have questions? Our team is ready to help with your freight needs.",
+    "sendMessage": "Send Us a Message",
+    "submit": "Send Message"
+  },
+  "about": {
+    "title": "About Sea Road Brokerage INC",
+    "mission": "Our Mission",
+    "credentials": "Verified Credentials"
+  }
+}

@@ -1,0 +1,656 @@
+# Sea Road Brokerage INC - TODO List
+
+## IMMEDIATE PRIORITIES (Week 1)
+
+### Setup & Configuration
+- [ ] Create Next.js 14+ project with TypeScript and App Router
+- [ ] Set up Tailwind CSS configuration with custom color scheme (blue/white theme)
+- [ ] Configure next-themes for dark/light mode toggle
+- [ ] Set up next-intl for multi-language support (en-us, es, fr-ca, pa)
+- [ ] Create Supabase project and configure environment variables
+- [ ] Set up Web3Forms account and get API key
+- [ ] Configure ESLint and Prettier for code consistency
+- [ ] Set up Git repository and initial commit
+
+### Database Setup
+- [ ] Create Supabase tables (quote_requests, carrier_applications, contact_messages, newsletter_subscribers)
+- [ ] Configure Row Level Security policies
+- [ ] Set up database indexes for performance
+- [ ] Create database migration files
+- [ ] Test database connections from Next.js
+
+### Core Layout
+- [ ] Create base layout component with Header and Footer
+- [ ] Build theme toggle button (top-left corner, sun/moon icon)
+- [ ] Implement language selector dropdown with flag icons
+- [ ] Create logo placeholder (180x50px, easy to replace)
+- [ ] Build responsive navigation with dropdowns
+- [ ] Create mobile hamburger menu
+- [ ] Design and implement footer structure
+
+## HIGH PRIORITY (Weeks 2-3)
+
+### Admin Dashboard Development (CRITICAL)
+
+**Authentication & Access Control**
+- [ ] Set up Supabase Auth for email/password authentication
+- [ ] Create admin_users table with role-based access
+- [ ] Build admin email verification system
+- [ ] Implement dashboard password protection (123456 default)
+- [ ] Create admin login page (/login)
+- [ ] Build AdminGuard component for route protection
+- [ ] Add "Admin Dashboard" button for verified admin users
+- [ ] Implement session persistence for dashboard password
+- [ ] Create super_admin, admin, and viewer roles
+- [ ] Build admin logout functionality
+
+**Database Setup**
+- [ ] Create loads table with all required fields
+- [ ] Create admin_users table
+- [ ] Create admin_activity_log table
+- [ ] Set up RLS policies for admin access
+- [ ] Create database indexes for performance
+- [ ] Add foreign key relationships
+- [ ] Set up auto-expire functionality for loads
+
+**Admin Layout & Navigation**
+- [ ] Create AdminLayout component with sidebar
+- [ ] Build AdminSidebar with navigation menu
+- [ ] Create AdminHeader with user menu
+- [ ] Design minimal white theme for admin pages
+- [ ] Add breadcrumb navigation
+- [ ] Implement responsive sidebar (collapsible)
+- [ ] Add active state indicators for nav items
+
+**Dashboard Overview Page (/admin/dashboard)**
+- [ ] Create dashboard overview layout
+- [ ] Build metric cards (Active Loads, Quotes, Traffic, Applications)
+- [ ] Add recent activity feed
+- [ ] Create quick action buttons
+- [ ] Display key statistics
+- [ ] Add real-time data updates
+- [ ] Implement data refresh functionality
+
+**Load Board Management (/admin/loads)**
+- [ ] Create load list table/grid view
+- [ ] Build "New Load" button and form modal
+- [ ] Design load form with all required fields:
+  - [ ] Origin (city, state, zip)
+  - [ ] Destination (city, state, zip)
+  - [ ] Pickup/Delivery dates with flexible options
+  - [ ] Equipment type dropdown
+  - [ ] Weight and length inputs
+  - [ ] Commodity field
+  - [ ] Rate and rate type (optional)
+  - [ ] Special requirements textarea
+  - [ ] Internal notes (admin only)
+- [ ] Implement form validation
+- [ ] Add auto-save as draft functionality
+- [ ] Create edit load functionality
+- [ ] Build delete load with confirmation
+- [ ] Add duplicate load feature
+- [ ] Implement filters (status, date, equipment type)
+- [ ] Add search by origin/destination
+- [ ] Create load status management (active, filled, expired, draft)
+- [ ] Build auto-expire system for loads
+- [ ] Add bulk actions (delete multiple, archive)
+- [ ] Implement address autocomplete
+- [ ] Create load ID auto-generation
+
+**Analytics Page (/admin/analytics)**
+- [ ] Design analytics dashboard layout
+- [ ] Integrate Google Analytics 4 data
+- [ ] Create traffic overview charts (daily/weekly/monthly)
+- [ ] Build page views breakdown
+- [ ] Add top pages widget
+- [ ] Show referral sources
+- [ ] Create geographic data visualization (map)
+- [ ] Add device breakdown (mobile/desktop/tablet)
+- [ ] Build conversion metrics section
+- [ ] Create quote form analytics
+- [ ] Add load board engagement metrics
+- [ ] Show most viewed loads
+- [ ] Build export to CSV/PDF functionality
+
+**Admin User Management (/admin/users)**
+- [ ] Create admin user list table
+- [ ] Build "Add Admin" form
+- [ ] Implement email verification for new admins
+- [ ] Add role assignment (super_admin, admin, viewer)
+- [ ] Create invitation email system
+- [ ] Build edit admin functionality
+- [ ] Add suspend/delete admin actions
+- [ ] Show last login timestamps
+- [ ] Create admin activity log view
+- [ ] Implement permission checking
+- [ ] Add resend invitation feature
+
+**Quote Request Management (/admin/quotes)**
+- [ ] Create quote list view
+- [ ] Add filters (status, date, service type)
+- [ ] Build quote detail modal/page
+- [ ] Add internal notes field
+- [ ] Create status update dropdown
+- [ ] Build assign to admin functionality
+- [ ] Add email customer templates
+- [ ] Create quote activity timeline
+- [ ] Implement quote export to PDF
+- [ ] Add archive/delete functionality
+
+**Carrier Application Management (/admin/carriers)**
+- [ ] Create carrier application list
+- [ ] Build application detail view
+- [ ] Add approval workflow
+- [ ] Create internal notes system
+- [ ] Build status management
+- [ ] Add document upload section (future)
+
+**Contact Messages (/admin/messages)**
+- [ ] Create message list view
+- [ ] Add read/unread status
+- [ ] Build reply functionality
+- [ ] Create message archive
+- [ ] Add filters and search
+
+**Settings Page (/admin/settings)**
+- [ ] Build dashboard password change form
+- [ ] Add auto-expire loads setting
+- [ ] Create email notification preferences
+- [ ] Add public load board visibility toggle
+- [ ] Build company info update form
+- [ ] Create email template editor
+- [ ] Add backup/export data functionality
+
+### Homepage Development
+- [ ] Design and build hero section with background image
+- [ ] Create features grid (6 feature cards with icons)
+- [ ] Build services overview section (3-column grid)
+- [ ] Add "Why Choose Us" section with statistics
+- [ ] Implement CTA sections throughout page
+- [ ] Add placeholder for client logos section
+- [ ] Optimize hero images for web performance
+
+### Quote Form (CRITICAL)
+- [ ] Design multi-step or single-page quote form layout
+- [ ] Implement all form fields with proper validation
+- [ ] Add Web3Forms integration with API key
+- [ ] Create required terms checkbox (blocks submission)
+- [ ] Add honeypot field for spam prevention
+- [ ] Implement real-time form validation
+- [ ] Build success/error handling
+- [ ] Connect form to Supabase database
+- [ ] Generate unique quote reference IDs
+- [ ] Create thank-you page with reference number
+- [ ] Add loading states during submission
+- [ ] Test form submissions end-to-end
+- [ ] Add reCAPTCHA v3 for additional security
+
+### Service Pages
+- [ ] Create service page template component
+- [ ] Build Full Truckload (FTL) service page
+- [ ] Build Less Than Truckload (LTL) service page
+- [ ] Build Intermodal service page
+- [ ] Build Flatbed service page
+- [ ] Build Temperature Controlled service page
+- [ ] Build Expedited Shipping service page
+- [ ] Write service descriptions (200-300 words each)
+- [ ] Add service-specific imagery
+- [ ] Include CTAs to quote form on each page
+
+### Additional Core Pages
+- [ ] Build About page with company info and USDOT/MC display
+- [ ] Create Contact page with embedded Google Map
+- [ ] Build Carriers page with partnership information
+- [ ] Create carrier application form
+- [ ] Build Resources page structure
+- [ ] Create 404 error page
+- [ ] Create general error boundary page
+
+### Public Load Board Page (/load-board)
+- [ ] Create public load board page layout
+- [ ] Display active, non-expired loads from database
+- [ ] Build search functionality (origin/destination)
+- [ ] Add filter options:
+  - [ ] Equipment type
+  - [ ] Pickup date range
+  - [ ] Origin/Destination states
+  - [ ] Weight range
+- [ ] Create load card component showing:
+  - [ ] Load ID
+  - [ ] Origin → Destination
+  - [ ] Pickup date
+  - [ ] Equipment type
+  - [ ] Weight
+  - [ ] Rate (if public)
+- [ ] Build load detail modal
+- [ ] Add "Contact for Quote" button
+- [ ] Implement pagination or infinite scroll
+- [ ] Add "No loads available" empty state
+- [ ] Show load count and filters applied
+- [ ] Create responsive grid layout
+- [ ] Add daily auto-update from admin dashboard
+
+## MEDIUM PRIORITY (Weeks 4-5)
+
+### Multi-Language Implementation
+- [ ] Create translation file structure (/locales directory)
+- [ ] Write English (en-us) translations for all pages
+- [ ] Translate to Spanish (es) - all content
+- [ ] Translate to French Canadian (fr-ca) - all content
+- [ ] Translate to Punjabi (pa) - all content
+- [ ] Implement language routing (/en-us/, /es/, etc.)
+- [ ] Add language persistence (cookie/localStorage)
+- [ ] Test language switching across all pages
+- [ ] Implement browser language detection
+- [ ] Add language-specific meta tags
+
+### Component Library
+- [ ] Build Button component (primary, secondary, outline)
+- [ ] Create Card component (service, feature, testimonial)
+- [ ] Build Input component with validation states
+- [ ] Create Select/Dropdown component
+- [ ] Build custom Checkbox component
+- [ ] Create DatePicker component
+- [ ] Build Modal component
+- [ ] Create Alert/Notification component
+- [ ] Build LoadingSpinner component
+- [ ] Create FormField wrapper component
+- [ ] Build ValidationMessage component
+
+### SEO & Meta
+- [ ] Add meta tags to all pages
+- [ ] Implement Schema.org markup (Organization, LocalBusiness, Service)
+- [ ] Create sitemap.xml
+- [ ] Configure robots.txt
+- [ ] Add Open Graph tags for social sharing
+- [ ] Optimize all images with alt text
+- [ ] Ensure proper heading hierarchy (H1-H6)
+- [ ] Add structured data for contact information
+
+### Performance Optimization
+- [ ] Optimize all images (convert to WebP with fallbacks)
+- [ ] Implement lazy loading for below-fold content
+- [ ] Configure Next.js Image component properly
+- [ ] Set up route-based code splitting
+- [ ] Implement dynamic imports for heavy components
+- [ ] Configure caching strategies (ISR, static)
+- [ ] Minimize JavaScript bundle size
+- [ ] Test and optimize Core Web Vitals
+- [ ] Run Lighthouse audits and fix issues
+
+## TESTING & QA (Week 6)
+
+### Functionality Testing
+- [ ] Test all form submissions (quote, contact, carrier)
+- [ ] Verify Supabase data storage
+- [ ] Test Web3Forms email delivery
+- [ ] Verify required checkbox functionality
+- [ ] Test form validation (all fields)
+- [ ] Check language switching functionality
+- [ ] Test theme toggle (light/dark)
+- [ ] Verify all navigation links
+- [ ] Test mobile menu functionality
+- [ ] Check Google Maps integration
+
+### Cross-Browser Testing
+- [ ] Test on Chrome (latest version)
+- [ ] Test on Firefox (latest version)
+- [ ] Test on Safari (latest version)
+- [ ] Test on Edge (latest version)
+- [ ] Test on Mobile Safari (iOS)
+- [ ] Test on Chrome Mobile (Android)
+- [ ] Document and fix browser-specific issues
+
+### Responsive Testing
+- [ ] Test on mobile (320px-640px)
+- [ ] Test on tablet (640px-1024px)
+- [ ] Test on desktop (1024px+)
+- [ ] Test on 4K displays (2560px+)
+- [ ] Verify touch targets on mobile (min 44px)
+- [ ] Test landscape and portrait modes
+
+### Accessibility Audit
+- [ ] Run WAVE accessibility checker
+- [ ] Test keyboard navigation (all pages)
+- [ ] Test with screen reader (NVDA or JAWS)
+- [ ] Verify color contrast ratios (4.5:1 minimum)
+- [ ] Check focus indicators visibility
+- [ ] Ensure form labels are properly associated
+- [ ] Add skip to main content link
+- [ ] Fix any ARIA issues
+
+### Performance Testing
+- [ ] Run Lighthouse performance audit
+- [ ] Check First Contentful Paint (<1.5s target)
+- [ ] Check Time to Interactive (<3s target)
+- [ ] Verify Cumulative Layout Shift (<0.1 target)
+- [ ] Test page load speeds on slow connections
+- [ ] Optimize any slow-loading resources
+
+## PRE-LAUNCH (Final Week)
+
+### Content & Media
+- [ ] Replace logo placeholder with final logo (when ready)
+- [ ] Finalize all page content (review and edit)
+- [ ] Add professional photography/imagery
+- [ ] Write meta descriptions for all pages
+- [ ] Create favicon and app icons
+- [ ] Add client/partner logos (when available)
+- [ ] Review and approve all translations
+
+### Configuration & Setup
+- [ ] Configure custom domain (searoadbrokerage.com or similar)
+- [ ] Set up SSL certificate
+- [ ] Configure email forwarding (searoadbrokerageinc@gmail.com)
+- [ ] Set up Google Analytics 4
+- [ ] Configure Google Search Console
+- [ ] Set up error tracking (Sentry or similar)
+- [ ] Configure uptime monitoring
+- [ ] Set up automated backups (Supabase)
+
+### Security Review
+- [ ] Audit environment variables (no exposed secrets)
+- [ ] Verify RLS policies on Supabase
+- [ ] Test form rate limiting
+- [ ] Check CSRF protection
+- [ ] Review input sanitization
+- [ ] Verify HTTPS enforcement
+- [ ] Test reCAPTCHA functionality
+- [ ] Review security headers
+
+### Deployment
+- [ ] Deploy to Vercel or Netlify (staging)
+- [ ] Test staging environment thoroughly
+- [ ] Configure production environment variables
+- [ ] Deploy to production
+- [ ] Verify DNS propagation
+- [ ] Test production site
+- [ ] Submit sitemap to Google Search Console
+- [ ] Submit to Bing Webmaster Tools
+
+## POST-LAUNCH (Ongoing)
+
+### Immediate Post-Launch (Week 1)
+- [ ] Monitor form submissions daily
+- [ ] Check error logs for issues
+- [ ] Monitor site performance/uptime
+- [ ] Set up Google My Business listing
+- [ ] Respond to any user-reported issues
+- [ ] Collect initial user feedback
+
+### Short-term (1-3 Months)
+- [ ] Add customer testimonials section
+- [ ] Create blog/news section for SEO content
+- [ ] Build load tracking portal
+- [ ] Implement real-time freight quotes (API)
+- [ ] Create carrier portal with login
+- [ ] Build admin dashboard for quote management
+- [ ] Set up email automation (quote follow-ups)
+- [ ] Add live chat widget (Intercom, Drift, etc.)
+- [ ] Create downloadable resources (guides, whitepapers)
+- [ ] Implement newsletter signup
+
+### Medium-term (3-6 Months)
+- [ ] Integrate payment processing (Stripe, etc.)
+- [ ] Build document upload system
+- [ ] Implement automated load matching
+- [ ] Create customer portal with login
+- [ ] Develop mobile app (React Native)
+- [ ] Integrate with TMS software
+- [ ] Create API for third-party integrations
+- [ ] Build advanced analytics dashboard
+- [ ] Add video content (company intro, service explanations)
+- [ ] Implement automated carrier onboarding
+
+### Long-term (6-12 Months)
+- [ ] AI-powered route optimization
+- [ ] Predictive pricing engine
+- [ ] Blockchain for shipment tracking
+- [ ] IoT integration for real-time tracking
+- [ ] Machine learning for demand forecasting
+- [ ] Multi-currency support
+- [ ] International shipping expansion
+- [ ] Partner integrations (Uber Freight, etc.)
+- [ ] Advanced reporting and analytics
+- [ ] White-label solutions for partners
+
+## CONTENT CREATION NEEDED
+
+### Copy Writing
+- [ ] Homepage hero headline and subheadline
+- [ ] Value propositions (4-6 bullet points)
+- [ ] Service page descriptions (200-300 words each x 6 pages)
+- [ ] About page company story (150-200 words)
+- [ ] Carrier benefits list (5-7 points)
+- [ ] Footer text and legal disclaimers
+- [ ] Form success messages
+- [ ] Error messages (user-friendly)
+- [ ] FAQ content (10-15 Q&As)
+
+### Legal Pages
+- [ ] Write Terms of Service
+- [ ] Write Privacy Policy
+- [ ] Write Cookie Policy
+- [ ] Write GDPR compliance statement (if applicable)
+- [ ] Create disclaimer text
+
+### Blog/SEO Content (Future)
+- [ ] "How to Choose a Freight Broker" guide
+- [ ] "LTL vs FTL: Which is Right for You?"
+- [ ] "Freight Shipping 101" beginner guide
+- [ ] Industry news updates (monthly)
+- [ ] Case studies (when available)
+- [ ] Customer success stories
+
+## DESIGN ASSETS NEEDED
+
+### Logo & Branding
+- [ ] Final company logo (SVG + PNG)
+- [ ] Logo variations (full, icon, light, dark)
+- [ ] Brand style guide
+- [ ] Color palette documentation
+- [ ] Typography guidelines
+
+### Images & Graphics
+- [ ] Hero background images (3-5 variations)
+- [ ] Service page header images (6 images)
+- [ ] Team photos (when available)
+- [ ] Office photos (Chowchilla location)
+- [ ] Truck/logistics stock photography
+- [ ] Icon set for features (custom or licensed)
+- [ ] Infographics for services
+- [ ] Social media graphics templates
+
+### UI Elements
+- [ ] Custom icons for navigation
+- [ ] Loading animations
+- [ ] Success/error state graphics
+- [ ] 404 page illustration
+- [ ] Email signature template
+
+## TECHNICAL DEBT & IMPROVEMENTS
+
+### Code Quality
+- [ ] Add comprehensive TypeScript types (no 'any')
+- [ ] Implement unit tests (Jest, React Testing Library)
+- [ ] Add integration tests (Cypress or Playwright)
+- [ ] Set up CI/CD pipeline
+- [ ] Configure automated code reviews
+- [ ] Add code coverage reporting
+- [ ] Document complex components
+- [ ] Refactor any duplicate code
+
+### Performance Enhancements
+- [ ] Implement advanced caching strategies
+- [ ] Add service worker for offline support
+- [ ] Optimize font loading (preload, subset)
+- [ ] Minimize third-party scripts
+- [ ] Implement edge caching (Vercel Edge, Cloudflare)
+- [ ] Add resource hints (preconnect, prefetch)
+
+### Security Hardening
+- [ ] Implement rate limiting on all forms
+- [ ] Add CAPTCHA to all public forms
+- [ ] Set up DDoS protection (Cloudflare)
+- [ ] Implement Content Security Policy
+- [ ] Add security headers (HSTS, X-Frame-Options, etc.)
+- [ ] Set up penetration testing
+- [ ] Regular security audits
+
+## ANALYTICS & MONITORING
+
+### Setup
+- [ ] Google Analytics 4 implementation
+- [ ] Google Tag Manager setup
+- [ ] Facebook Pixel (if running ads)
+- [ ] Conversion tracking (quote submissions)
+- [ ] Form abandonment tracking
+- [ ] Error tracking (Sentry, Rollbar)
+- [ ] Uptime monitoring (UptimeRobot, Pingdom)
+- [ ] Performance monitoring (Vercel Analytics, Speedcurve)
+
+### Reports to Create
+- [ ] Monthly traffic report
+- [ ] Conversion rate analysis
+- [ ] Form completion rates
+- [ ] Top landing pages
+- [ ] User flow analysis
+- [ ] Device/browser breakdown
+- [ ] Geographic traffic sources
+
+## MARKETING & GROWTH
+
+### SEO
+- [ ] Keyword research for freight/logistics
+- [ ] On-page SEO optimization
+- [ ] Local SEO (Chowchilla, California)
+- [ ] Build backlink strategy
+- [ ] Create and submit local citations
+- [ ] Optimize for "near me" searches
+- [ ] Set up Google My Business
+- [ ] Regular content publishing (blog)
+
+### Paid Advertising (Future)
+- [ ] Google Ads setup (Search, Display)
+- [ ] Facebook/Instagram ads
+- [ ] LinkedIn sponsored content
+- [ ] Retargeting campaigns
+- [ ] Industry publication ads
+- [ ] Trade show materials
+
+### Email Marketing
+- [ ] Build email list (newsletter signups)
+- [ ] Create welcome email sequence
+- [ ] Design monthly newsletter template
+- [ ] Quote follow-up automation
+- [ ] Abandoned quote recovery emails
+- [ ] Customer retention campaigns
+
+### Social Media
+- [ ] Set up Facebook business page
+- [ ] Create LinkedIn company page
+- [ ] Set up Instagram (optional)
+- [ ] Create content calendar
+- [ ] Schedule regular posts
+- [ ] Engage with industry communities
+
+## MAINTENANCE SCHEDULE
+
+### Daily
+- [ ] Monitor form submissions
+- [ ] Check error logs
+- [ ] Respond to quote requests (within 4 hours)
+
+### Weekly
+- [ ] Review analytics
+- [ ] Check site uptime reports
+- [ ] Monitor page load times
+- [ ] Review security alerts
+
+### Monthly
+- [ ] Update content (blog posts, news)
+- [ ] Review and respond to user feedback
+- [ ] Check for broken links
+- [ ] Review SEO rankings
+- [ ] Backup verification
+
+### Quarterly
+- [ ] Update dependencies
+- [ ] Security audit
+- [ ] Performance optimization review
+- [ ] Content refresh (outdated info)
+- [ ] Competitor analysis
+
+### Annually
+- [ ] Major content review and update
+- [ ] Design refresh evaluation
+- [ ] Technology stack review
+- [ ] SSL certificate renewal
+- [ ] Domain renewal
+
+## NICE-TO-HAVE FEATURES
+
+### User Experience
+- [ ] Freight calculator tool
+- [ ] Transit time estimator
+- [ ] Load board search
+- [ ] Carrier rating system
+- [ ] Real-time quote comparison
+- [ ] Saved quote templates
+- [ ] Quote history for logged-in users
+
+### Advanced Features
+- [ ] Multi-modal shipping options
+- [ ] Carbon footprint calculator
+- [ ] Route visualization on maps
+- [ ] Weather tracking for shipments
+- [ ] Customs documentation assistance
+- [ ] Load consolidation suggestions
+- [ ] Automated carrier selection
+
+### Integration Opportunities
+- [ ] Slack notifications for new quotes
+- [ ] Zapier integration
+- [ ] QuickBooks integration
+- [ ] Salesforce CRM integration
+- [ ] DocuSign for contract signing
+- [ ] SMS notifications for updates
+
+## NOTES & REMINDERS
+
+### Important Dates
+- [ ] Logo delivery: TBD
+- [ ] Final content approval: TBD
+- [ ] Target launch date: TBD
+- [ ] First marketing campaign: TBD
+
+### Decisions Needed
+- [ ] Final domain name (if not searoadbrokerage.com)
+- [ ] Hosting preference (Vercel vs Netlify)
+- [ ] Analytics platform (GA4 confirmed, any others?)
+- [ ] Live chat provider choice
+- [ ] Email marketing platform
+- [ ] CRM system selection
+
+### Questions for Stakeholders
+- [ ] Any specific industry certifications to highlight?
+- [ ] Service area limitations (California only? West Coast? National?)
+- [ ] Preferred payment terms for carriers
+- [ ] Standard turnaround time for quotes
+- [ ] Operating hours
+- [ ] Emergency/after-hours contact information
+- [ ] Insurance coverage details
+- [ ] Key differentiators vs competitors
+
+### Resources & References
+- [ ] USDOT verification link: https://safer.fmcsa.dot.gov/
+- [ ] MC verification: https://li-public.fmcsa.dot.gov/
+- [ ] TQL reference: https://www.tql.com/
+- [ ] C.H. Robinson reference: https://www.chrobinson.com/en-us/
+- [ ] Freight industry associations: TIA, IANA, etc.
+
+---
+
+**Last Updated**: May 23, 2026
+**Next Review**: Weekly until launch, then monthly
+**Owner**: Kanwaljit Singh / Sea Road Brokerage INC

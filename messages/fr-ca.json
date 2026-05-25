@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "services": "Services",
+    "carriers": "Transporteurs",
+    "resources": "Ressources",
+    "about": "À propos",
+    "contact": "Contact",
+    "getQuote": "Obtenir un devis",
+    "loadBoard": "Tableau de bord"
+  },
+  "hero": {
+    "headline": "Solutions de fret fiables en Amérique du Nord",
+    "subheadline": "Services professionnels de courtage de fret avec USDOT #4398936 | MC-1726540",
+    "cta1": "Obtenir un devis",
+    "cta2": "Devenir transporteur",
+    "badge": "Courtier de fret agréé et cautionné | Enregistré auprès de la FMCSA"
+  },
+  "features": {
+    "title": "Pourquoi Sea Road Brokerage?",
+    "subtitle": "Nous combinons expertise et technologie pour offrir des solutions de transport adaptées à votre entreprise.",
+    "nationwide": "Couverture nationale",
+    "support": "Support 24/7",
+    "rates": "Tarifs compétitifs",
+    "tracking": "Suivi en temps réel",
+    "licensed": "Agréé et assuré",
+    "payment": "Paiement rapide"
+  },
+  "footer": {
+    "company": "Services professionnels de courtage de fret reliant les expéditeurs et les transporteurs en Amérique du Nord.",
+    "services": "Services",
+    "quickLinks": "Liens rapides",
+    "contact": "Contactez-nous",
+    "copyright": "Sea Road Brokerage INC. Tous droits réservés.",
+    "licensed": "Agréé et cautionné | Enregistré FMCSA"
+  },
+  "quote": {
+    "title": "Demander un devis",
+    "subtitle": "Remplissez le formulaire et notre équipe vous répondra dans 2 heures ouvrables.",
+    "submit": "Soumettre la demande",
+    "success": "Devis soumis avec succès!",
+    "error": "Erreur lors de la soumission. Veuillez réessayer."
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Vous avez des questions? Notre équipe est prête à vous aider.",
+    "sendMessage": "Envoyez-nous un message",
+    "submit": "Envoyer le message"
+  },
+  "about": {
+    "title": "À propos de Sea Road Brokerage INC",
+    "mission": "Notre mission",
+    "credentials": "Accréditations vérifiées"
+  }
+}

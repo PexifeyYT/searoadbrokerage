@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "services": "Servicios",
+    "carriers": "Transportistas",
+    "resources": "Recursos",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "getQuote": "Obtener Cotización",
+    "loadBoard": "Tablero de Cargas"
+  },
+  "hero": {
+    "headline": "Soluciones de Carga Confiables en Toda Norteamérica",
+    "subheadline": "Servicios profesionales de corretaje de carga con USDOT #4398936 | MC-1726540",
+    "cta1": "Obtener Cotización",
+    "cta2": "Ser Transportista",
+    "badge": "Corredor de Carga Autorizado y Asegurado | Registrado en FMCSA"
+  },
+  "features": {
+    "title": "¿Por qué Sea Road Brokerage?",
+    "subtitle": "Combinamos experiencia en la industria con tecnología moderna para brindar soluciones de carga que funcionan.",
+    "nationwide": "Cobertura Nacional",
+    "support": "Soporte 24/7",
+    "rates": "Tarifas Competitivas",
+    "tracking": "Seguimiento en Tiempo Real",
+    "licensed": "Licenciado y Asegurado",
+    "payment": "Pago Rápido"
+  },
+  "footer": {
+    "company": "Servicios profesionales de corretaje de carga que conectan a expedidores y transportistas en Norteamérica.",
+    "services": "Servicios",
+    "quickLinks": "Enlaces Rápidos",
+    "contact": "Contáctenos",
+    "copyright": "Sea Road Brokerage INC. Todos los derechos reservados.",
+    "licensed": "Licenciado y Asegurado | Registrado en FMCSA"
+  },
+  "quote": {
+    "title": "Solicitar una Cotización",
+    "subtitle": "Complete el formulario y nuestro equipo responderá en 2 horas hábiles.",
+    "submit": "Enviar Solicitud de Cotización",
+    "success": "¡Cotización enviada exitosamente!",
+    "error": "Error al enviar la cotización. Por favor intente nuevamente."
+  },
+  "contact": {
+    "title": "Contáctenos",
+    "subtitle": "¿Tiene preguntas? Nuestro equipo está listo para ayudar con sus necesidades de carga.",
+    "sendMessage": "Envíenos un Mensaje",
+    "submit": "Enviar Mensaje"
+  },
+  "about": {
+    "title": "Sobre Sea Road Brokerage INC",
+    "mission": "Nuestra Misión",
+    "credentials": "Credenciales Verificadas"
+  }
+}
