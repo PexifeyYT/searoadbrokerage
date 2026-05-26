@@ -62,6 +62,22 @@ export default function LoadBoardPage() {
     fetchLoads();
   }, [fetchLoads]);
 
+  // Realtime: update load list instantly when admin adds/edits/deletes
+  useEffect(() => {
+    const channel = supabase
+      .channel('loads-public-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'loads' },
+        () => {
+          fetchLoads();
+        }
+      )
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, [fetchLoads]);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900/30">
       {/* Header */}
