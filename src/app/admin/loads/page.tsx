@@ -8,6 +8,7 @@ import Modal from '@/components/ui/Modal';
 import LoadForm from '@/components/admin/LoadForm';
 import Button from '@/components/ui/Button';
 import type { Load, LoadFormData } from '@/types';
+import { adminFetch } from '@/lib/admin-fetch';
 import { Plus } from 'lucide-react';
 
 export default function AdminLoadsPage() {
@@ -16,7 +17,7 @@ export default function AdminLoadsPage() {
   const [saving, setSaving] = useState(false);
 
   const fetchLoads = async () => {
-    const res = await fetch('/api/admin/loads');
+    const res = await adminFetch('/api/admin/loads');
     if (res.ok) {
       const data = await res.json();
       setLoads(data);
@@ -29,15 +30,14 @@ export default function AdminLoadsPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this load?')) return;
-    await fetch(`/api/admin/loads/${id}`, { method: 'DELETE' });
+    await adminFetch(`/api/admin/loads/${id}`, { method: 'DELETE' });
     fetchLoads();
   };
 
   const handleDuplicate = async (load: Load) => {
     const { id, load_id, created_at, updated_at, ...rest } = load;
-    await fetch('/api/admin/loads', {
+    await adminFetch('/api/admin/loads', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...rest, status: 'pending' }),
     });
     fetchLoads();
@@ -46,9 +46,8 @@ export default function AdminLoadsPage() {
   const handleSaveEdit = async (data: Omit<LoadFormData, 'load_id'>) => {
     if (!editingLoad) return;
     setSaving(true);
-    await fetch(`/api/admin/loads/${editingLoad.id}`, {
+    await adminFetch(`/api/admin/loads/${editingLoad.id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
     setSaving(false);

@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Alert from '@/components/ui/Alert';
+import { adminFetch } from '@/lib/admin-fetch';
 
 const roleOptions = [
   { value: 'super_admin', label: 'Super Admin' },
@@ -24,7 +25,7 @@ export default function AdminUsersPage() {
   const [saving, setSaving] = useState(false);
 
   const fetchUsers = async () => {
-    const res = await fetch('/api/admin/users');
+    const res = await adminFetch('/api/admin/users');
     if (res.ok) setUsers(await res.json());
   };
 
@@ -34,9 +35,8 @@ export default function AdminUsersPage() {
     e.preventDefault();
     setSaving(true);
     setError(null);
-    const res = await fetch('/api/admin/users', {
+    const res = await adminFetch('/api/admin/users', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...newUser, is_active: true }),
     });
     if (res.ok) {

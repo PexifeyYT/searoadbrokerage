@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import AdminHeader from '@/components/admin/AdminHeader';
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/admin-fetch';
 import type { CarrierApplication } from '@/types';
 import { formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
@@ -18,14 +18,20 @@ export default function AdminCarriersPage() {
   const [carriers, setCarriers] = useState<CarrierApplication[]>([]);
 
   const fetchCarriers = async () => {
-    const { data } = await supabase.from('carrier_applications').select('*').order('created_at', { ascending: false });
-    if (data) setCarriers(data as CarrierApplication[]);
+    const res = await adminFetch('/api/admin/carriers');
+    if (res.ok) {
+      const data = await res.json();
+      setCarriers(data as CarrierApplication[]);
+    }
   };
 
   useEffect(() => { fetchCarriers(); }, []);
 
   const updateStatus = async (id: string, status: string) => {
-    await supabase.from('carrier_applications').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
+    await adminFetch('/api/admin/carriers', {
+      method: 'PUT',
+      body: JSON.stringify({ id, status }),
+    });
     fetchCarriers();
   };
 

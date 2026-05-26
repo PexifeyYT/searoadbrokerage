@@ -1,25 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
+import { verifyAdminRequest } from '@/lib/admin-auth';
 import { generateLoadId } from '@/lib/utils';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 
-async function verifyAdmin() {
-  const client = createRouteHandlerClient({ cookies });
-  const { data: { session } } = await client.auth.getSession();
-  if (!session) return null;
-  const { data } = await supabaseAdmin
-    .from('admin_users')
-    .select('id, role')
-    .eq('email', session.user.email)
-    .eq('is_active', true)
-    .single();
-  return data ? session : null;
-}
-
-export async function GET() {
-  const session = await verifyAdmin();
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+export async function GET(req: NextRequest) {
+  const admin = await verifyAdminRequest(req);
+  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { data, error } = await supabaseAdmin
     .from('loads')
@@ -31,8 +17,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await verifyAdmin();
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const admin = await verifyAdminRequest(req);
+  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json();
   const load_id = generateLoadId();

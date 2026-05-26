@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/admin-fetch';
 import AdminHeader from '@/components/admin/AdminHeader';
 import { Package, FileText, Truck, MessageSquare, Plus, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -15,6 +15,14 @@ interface MetricCard {
   color: string;
 }
 
+interface RecentQuote {
+  id: string;
+  quote_ref: string;
+  full_name: string;
+  shipment_type: string;
+  created_at: string;
+}
+
 export default function DashboardPage() {
   const [metrics, setMetrics] = useState({
     activeLoads: 0,
@@ -22,39 +30,21 @@ export default function DashboardPage() {
     pendingCarriers: 0,
     unreadMessages: 0,
   });
-  const [recentQuotes, setRecentQuotes] = useState<{ id: string; quote_ref: string; full_name: string; shipment_type: string; created_at: string }[]>([]);
+  const [recentQuotes, setRecentQuotes] = useState<RecentQuote[]>([]);
 
   useEffect(() => {
-    const fetchMetrics = async () => {
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-      const [loads, quotes, carriers, messages] = await Promise.all([
-        supabase.from('loads').select('id', { count: 'exact', head: true }).eq('status', 'active'),
-        supabase.from('quote_requests').select('id', { count: 'exact', head: true }).gte('created_at', thirtyDaysAgo.toISOString()),
-        supabase.from('carrier_applications').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
-        supabase.from('contact_messages').select('id', { count: 'exact', head: true }).eq('is_read', false),
-      ]);
-
-      setMetrics({
-        activeLoads: loads.count || 0,
-        quoteRequests: quotes.count || 0,
-        pendingCarriers: carriers.count || 0,
-        unreadMessages: messages.count || 0,
-      });
-    };
-
-    const fetchRecentQuotes = async () => {
-      const { data } = await supabase
-        .from('quote_requests')
-        .select('id, quote_ref, full_name, shipment_type, created_at')
-        .order('created_at', { ascending: false })
-        .limit(5);
-      if (data) setRecentQuotes(data);
-    };
-
-    fetchMetrics();
-    fetchRecentQuotes();
+    adminFetch('/api/admin/metrics')
+      .then((r) => r.json())
+      .then((d) => {
+        setMetrics({
+          activeLoads: d.activeLoads,
+          quoteRequests: d.quoteRequests,
+          pendingCarriers: d.pendingCarriers,
+          unreadMessages: d.unreadMessages,
+        });
+        setRecentQuotes(d.recentQuotes ?? []);
+      })
+      .catch(console.error);
   }, []);
 
   const metricCards: MetricCard[] = [
@@ -86,7 +76,6 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Recent Quotes */}
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-semibold text-gray-900">Recent Quote Requests</h2>
@@ -111,7 +100,6 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* Quick Actions */}
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <h2 className="font-semibold text-gray-900 mb-4">Quick Actions</h2>
             <div className="grid grid-cols-2 gap-3">

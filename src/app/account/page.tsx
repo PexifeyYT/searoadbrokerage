@@ -9,24 +9,26 @@ import { Truck, FileText, Package, LogOut, Clock, CheckCircle, XCircle, AlertCir
 interface QuoteRequest {
   id: string;
   created_at: string;
-  first_name: string;
-  last_name: string;
+  full_name: string;
   shipment_type: string;
-  origin: string;
-  destination: string;
+  origin_city: string;
+  origin_state: string;
+  destination_city: string;
+  destination_state: string;
   pickup_date: string;
   status: string;
-  quote_reference: string;
-  weight: string;
-  commodity_type: string;
+  quote_ref: string;
+  weight_lbs: number | null;
+  commodity: string | null;
 }
 
 const statusConfig: Record<string, { icon: typeof Clock; color: string; label: string }> = {
-  pending:    { icon: Clock,         color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20', label: 'Pending' },
-  reviewing:  { icon: AlertCircle,   color: 'text-blue-400 bg-blue-400/10 border-blue-400/20',     label: 'In Review' },
-  quoted:     { icon: CheckCircle,   color: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20', label: 'Quoted' },
-  completed:  { icon: CheckCircle,   color: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20', label: 'Completed' },
-  cancelled:  { icon: XCircle,       color: 'text-red-400 bg-red-400/10 border-red-400/20',         label: 'Cancelled' },
+  new:       { icon: Clock,         color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20',   label: 'New' },
+  reviewing: { icon: AlertCircle,   color: 'text-blue-400 bg-blue-400/10 border-blue-400/20',         label: 'In Review' },
+  quoted:    { icon: CheckCircle,   color: 'text-purple-400 bg-purple-400/10 border-purple-400/20',   label: 'Quoted' },
+  accepted:  { icon: CheckCircle,   color: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20', label: 'Accepted' },
+  rejected:  { icon: XCircle,       color: 'text-red-400 bg-red-400/10 border-red-400/20',             label: 'Rejected' },
+  expired:   { icon: XCircle,       color: 'text-gray-400 bg-gray-400/10 border-gray-400/20',          label: 'Expired' },
 };
 
 export default function AccountPage() {
@@ -46,7 +48,7 @@ export default function AccountPage() {
 
       const { data } = await supabase
         .from('quote_requests')
-        .select('id, created_at, first_name, last_name, shipment_type, origin, destination, pickup_date, status, quote_reference, weight, commodity_type')
+        .select('id, created_at, full_name, shipment_type, origin_city, origin_state, destination_city, destination_state, pickup_date, status, quote_ref, weight_lbs, commodity')
         .eq('email', email)
         .order('created_at', { ascending: false });
 
@@ -71,12 +73,10 @@ export default function AccountPage() {
 
   return (
     <div className="min-h-screen bg-[#060D1F]">
-      {/* Background */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/8 blur-[120px] rounded-full" />
       </div>
 
-      {/* Header */}
       <header className="relative border-b border-white/8 bg-white/3 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
@@ -96,7 +96,6 @@ export default function AccountPage() {
       </header>
 
       <main className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Welcome */}
         <div className="mb-10">
           <div className="flex items-center gap-4 mb-2">
             <div className="h-12 w-12 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
@@ -109,23 +108,21 @@ export default function AccountPage() {
           </div>
         </div>
 
-        {/* Stats row */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-10">
           <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
             <p className="text-2xl font-black text-white">{quotes.length}</p>
             <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">Total Quotes</p>
           </div>
           <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
-            <p className="text-2xl font-black text-emerald-400">{quotes.filter(q => q.status === 'completed').length}</p>
-            <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">Completed</p>
+            <p className="text-2xl font-black text-emerald-400">{quotes.filter(q => q.status === 'accepted').length}</p>
+            <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">Accepted</p>
           </div>
           <div className="bg-white/5 border border-white/10 rounded-2xl p-5 col-span-2 sm:col-span-1">
-            <p className="text-2xl font-black text-yellow-400">{quotes.filter(q => q.status === 'pending' || q.status === 'reviewing').length}</p>
+            <p className="text-2xl font-black text-yellow-400">{quotes.filter(q => q.status === 'new' || q.status === 'reviewing').length}</p>
             <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">In Progress</p>
           </div>
         </div>
 
-        {/* Quick action */}
         <div className="mb-8">
           <Link
             href="/en-us/quote"
@@ -137,7 +134,6 @@ export default function AccountPage() {
           </Link>
         </div>
 
-        {/* Quote history */}
         <div>
           <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
             <Package className="h-5 w-5 text-blue-400" />
@@ -159,12 +155,12 @@ export default function AccountPage() {
           ) : (
             <div className="space-y-3">
               {quotes.map((quote) => {
-                const cfg = statusConfig[quote.status] ?? statusConfig.pending;
+                const cfg = statusConfig[quote.status] ?? statusConfig.new;
                 const StatusIcon = cfg.icon;
                 return (
                   <div
                     key={quote.id}
-                    className="bg-white/4 border border-white/8 hover:border-white/15 rounded-2xl p-5 transition-all duration-200 group"
+                    className="bg-white/4 border border-white/8 hover:border-white/15 rounded-2xl p-5 transition-all duration-200"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="flex-1 min-w-0">
@@ -173,15 +169,17 @@ export default function AccountPage() {
                             <StatusIcon className="h-3 w-3" />
                             {cfg.label}
                           </span>
-                          <span className="text-xs text-gray-500 font-mono">{quote.quote_reference}</span>
+                          {quote.quote_ref && (
+                            <span className="text-xs text-gray-500 font-mono">{quote.quote_ref}</span>
+                          )}
                         </div>
                         <p className="text-sm font-semibold text-white mb-1 truncate">
-                          {quote.origin} → {quote.destination}
+                          {quote.origin_city}, {quote.origin_state} → {quote.destination_city}, {quote.destination_state}
                         </p>
                         <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400">
                           {quote.shipment_type && <span>{quote.shipment_type}</span>}
-                          {quote.commodity_type && <span>{quote.commodity_type}</span>}
-                          {quote.weight && <span>{quote.weight} lbs</span>}
+                          {quote.commodity && <span>{quote.commodity}</span>}
+                          {quote.weight_lbs && <span>{quote.weight_lbs.toLocaleString()} lbs</span>}
                           {quote.pickup_date && <span>Pickup: {new Date(quote.pickup_date).toLocaleDateString()}</span>}
                         </div>
                       </div>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import AdminHeader from '@/components/admin/AdminHeader';
 import LoadForm from '@/components/admin/LoadForm';
 import type { LoadFormData } from '@/types';
+import { adminFetch } from '@/lib/admin-fetch';
 
 export default function NewLoadPage() {
   const [saving, setSaving] = useState(false);
@@ -12,9 +13,8 @@ export default function NewLoadPage() {
 
   const handleSubmit = async (data: Omit<LoadFormData, 'load_id'>) => {
     setSaving(true);
-    await fetch('/api/admin/loads', {
+    await adminFetch('/api/admin/loads', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
     setSaving(false);

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import AdminHeader from '@/components/admin/AdminHeader';
 import type { QuoteRequest } from '@/types';
+import { adminFetch } from '@/lib/admin-fetch';
 import { formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 
@@ -21,16 +22,15 @@ export default function AdminQuotesPage() {
   const [quotes, setQuotes] = useState<QuoteRequest[]>([]);
 
   const fetchQuotes = async () => {
-    const res = await fetch('/api/admin/quotes');
+    const res = await adminFetch('/api/admin/quotes');
     if (res.ok) setQuotes(await res.json());
   };
 
   useEffect(() => { fetchQuotes(); }, []);
 
   const updateStatus = async (id: string, status: string) => {
-    await fetch(`/api/admin/quotes/${id}`, {
+    await adminFetch(`/api/admin/quotes/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     });
     fetchQuotes();

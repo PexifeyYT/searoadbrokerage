@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/admin-fetch';
 import AdminHeader from '@/components/admin/AdminHeader';
 import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import { format, subDays, eachDayOfInterval } from 'date-fns';
 
@@ -17,41 +17,31 @@ export default function AnalyticsPage() {
   const [monthlyLoads, setMonthlyLoads] = useState<{ month: string; loads: number }[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const thirtyDaysAgo = subDays(new Date(), 29);
-      const days = eachDayOfInterval({ start: thirtyDaysAgo, end: new Date() });
+    adminFetch('/api/admin/analytics')
+      .then((r) => r.json())
+      .then(({ quotes, loads }) => {
+        const thirtyDaysAgo = subDays(new Date(), 29);
+        const days = eachDayOfInterval({ start: thirtyDaysAgo, end: new Date() });
 
-      const { data: quotes } = await supabase
-        .from('quote_requests')
-        .select('created_at, shipment_type')
-        .gte('created_at', thirtyDaysAgo.toISOString());
+        const dayMap: Record<string, number> = {};
+        const typeMap: Record<string, number> = {};
+        (quotes || []).forEach((q: { created_at: string; shipment_type: string }) => {
+          const day = format(new Date(q.created_at), 'MM/dd');
+          dayMap[day] = (dayMap[day] || 0) + 1;
+          typeMap[q.shipment_type] = (typeMap[q.shipment_type] || 0) + 1;
+        });
 
-      const dayMap: Record<string, number> = {};
-      const typeMap: Record<string, number> = {};
+        setDailyData(days.map((d) => ({ date: format(d, 'MM/dd'), quotes: dayMap[format(d, 'MM/dd')] || 0 })));
+        setShipmentTypes(Object.entries(typeMap).map(([name, value]) => ({ name, value })));
 
-      (quotes || []).forEach((q) => {
-        const day = format(new Date(q.created_at), 'MM/dd');
-        dayMap[day] = (dayMap[day] || 0) + 1;
-        typeMap[q.shipment_type] = (typeMap[q.shipment_type] || 0) + 1;
-      });
-
-      setDailyData(days.map((d) => ({ date: format(d, 'MM/dd'), quotes: dayMap[format(d, 'MM/dd')] || 0 })));
-      setShipmentTypes(Object.entries(typeMap).map(([name, value]) => ({ name, value })));
-
-      // Monthly loads (last 6 months)
-      const { data: loads } = await supabase
-        .from('loads')
-        .select('created_at')
-        .gte('created_at', subDays(new Date(), 180).toISOString());
-
-      const monthMap: Record<string, number> = {};
-      (loads || []).forEach((l) => {
-        const month = format(new Date(l.created_at), 'MMM yyyy');
-        monthMap[month] = (monthMap[month] || 0) + 1;
-      });
-      setMonthlyLoads(Object.entries(monthMap).map(([month, loads]) => ({ month, loads })));
-    };
-    fetchData();
+        const monthMap: Record<string, number> = {};
+        (loads || []).forEach((l: { created_at: string }) => {
+          const month = format(new Date(l.created_at), 'MMM yyyy');
+          monthMap[month] = (monthMap[month] || 0) + 1;
+        });
+        setMonthlyLoads(Object.entries(monthMap).map(([month, loads]) => ({ month, loads })));
+      })
+      .catch(console.error);
   }, []);
 
   const COLORS = ['#0A6EBD', '#1E88E5', '#42A5F5', '#90CAF9', '#BBDEFB', '#64B5F6'];
@@ -61,7 +51,6 @@ export default function AnalyticsPage() {
       <AdminHeader title="Analytics" />
       <main className="flex-1 p-6 overflow-y-auto">
         <div className="space-y-6">
-          {/* Daily Quotes */}
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <h2 className="font-semibold text-gray-900 mb-4">Daily Quote Requests (Last 30 Days)</h2>
             <ResponsiveContainer width="100%" height={250}>
@@ -76,7 +65,6 @@ export default function AnalyticsPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Shipment Types */}
             <div className="bg-white rounded-xl border border-gray-200 p-5">
               <h2 className="font-semibold text-gray-900 mb-4">Quote Shipment Types</h2>
               {shipmentTypes.length === 0 ? (
@@ -95,7 +83,6 @@ export default function AnalyticsPage() {
               )}
             </div>
 
-            {/* Monthly Loads */}
             <div className="bg-white rounded-xl border border-gray-200 p-5">
               <h2 className="font-semibold text-gray-900 mb-4">Monthly Loads Posted</h2>
               {monthlyLoads.length === 0 ? (

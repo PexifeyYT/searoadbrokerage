@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import AdminHeader from '@/components/admin/AdminHeader';
 import type { ContactMessage } from '@/types';
+import { adminFetch } from '@/lib/admin-fetch';
 import { formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 import { Mail, MailOpen } from 'lucide-react';
@@ -12,7 +13,7 @@ export default function AdminMessagesPage() {
   const [selected, setSelected] = useState<ContactMessage | null>(null);
 
   const fetchMessages = async () => {
-    const res = await fetch('/api/admin/messages');
+    const res = await adminFetch('/api/admin/messages');
     if (res.ok) setMessages(await res.json());
   };
 
@@ -21,9 +22,8 @@ export default function AdminMessagesPage() {
   const markRead = async (msg: ContactMessage) => {
     setSelected(msg);
     if (!msg.is_read) {
-      await fetch('/api/admin/messages', {
+      await adminFetch('/api/admin/messages', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: msg.id, is_read: true }),
       });
       fetchMessages();
