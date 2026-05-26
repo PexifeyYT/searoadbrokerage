@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Truck, Menu, X, ChevronDown, Phone, ArrowRight, Lock } from 'lucide-react';
+import { Truck, Menu, X, ChevronDown, Phone, ArrowRight, User, LogOut } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 import { useTranslations } from 'next-intl';
 import ThemeToggle from './ThemeToggle';
 import LanguageSelector from './LanguageSelector';
@@ -15,7 +16,23 @@ export default function Header({ locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const t = useTranslations('nav');
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserEmail(session?.user?.email ?? null);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUserEmail(session?.user?.email ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setMobileOpen(false);
+  };
 
   const navLink = (href: string) => `/${locale}${href}`;
 
@@ -61,14 +78,6 @@ export default function Header({ locale }: HeaderProps) {
               <Phone className="h-3 w-3 text-blue-400" />
               (209) 920-0003
             </a>
-            <span className="text-gray-700">|</span>
-            <Link
-              href="/login"
-              className="flex items-center gap-1 text-gray-400 hover:text-white transition-colors text-xs font-medium"
-            >
-              <Lock className="h-3 w-3" />
-              Admin
-            </Link>
             <span className="text-gray-700">|</span>
             <ThemeToggle />
             <LanguageSelector currentLocale={locale} />
@@ -148,6 +157,32 @@ export default function Header({ locale }: HeaderProps) {
                 <Phone className="h-4 w-4" />
                 (209) 920-0003
               </a>
+              {userEmail ? (
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/account"
+                    className="flex items-center gap-1.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-3 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40"
+                  >
+                    <User className="h-4 w-4" />
+                    My Account
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-red-500 transition-colors px-3 py-2 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/20"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="flex items-center gap-1.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-3 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40"
+                >
+                  <User className="h-4 w-4" />
+                  Sign In
+                </Link>
+              )}
               <Link
                 href={navLink('/quote')}
                 className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-blue-500/30 hover:shadow-lg whitespace-nowrap"
@@ -216,14 +251,34 @@ export default function Header({ locale }: HeaderProps) {
             >
               {t('getQuote')} <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link
-              href="/login"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-700 font-medium px-5 py-3 rounded-xl transition-colors text-sm"
-            >
-              <Lock className="h-4 w-4" />
-              Admin Login
-            </Link>
+            {userEmail ? (
+              <div className="flex flex-col gap-2">
+                <Link
+                  href="/account"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium px-5 py-3 rounded-xl text-sm hover:border-blue-400 hover:text-blue-600 transition-colors"
+                >
+                  <User className="h-4 w-4" />
+                  My Account
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-red-500 py-2 transition-colors"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium px-5 py-3 rounded-xl text-sm hover:border-blue-400 hover:text-blue-600 transition-colors"
+              >
+                <User className="h-4 w-4" />
+                Sign In / Register
+              </Link>
+            )}
             <div className="flex items-center justify-between">
               <ThemeToggle />
               <LanguageSelector currentLocale={locale} />
