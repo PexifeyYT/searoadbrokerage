@@ -24,7 +24,7 @@ const quoteSchema = z.object({
   commodity: z.string().min(2, 'Commodity description is required'),
   weight_lbs: z.coerce.number().min(1, 'Weight is required').max(80000, 'Max weight is 80,000 lbs'),
   dimensions: z.string().optional(),
-  pickup_date: z.string().min(1, 'Pickup date is required'),
+  pickup_date: z.string().min(1, 'Pickup date is required').refine((d) => new Date(d) >= new Date(new Date().toDateString()), 'Pickup date must be today or in the future'),
   delivery_date: z.string().optional(),
   special_instructions: z.string().optional(),
   terms_accepted: z.literal(true, {
@@ -109,7 +109,7 @@ export default function QuoteForm({ locale }: QuoteFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
       {/* Honeypot */}
-      <input type="text" {...register('_honey')} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+      <input type="text" {...register('_honey')} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
       {error && <Alert variant="error">{error}</Alert>}
 
@@ -230,12 +230,14 @@ export default function QuoteForm({ locale }: QuoteFormProps) {
             label="Pickup Date"
             required
             type="date"
+            min={new Date().toISOString().split('T')[0]}
             {...register('pickup_date')}
             error={errors.pickup_date?.message}
           />
           <Input
             label="Delivery Date (optional)"
             type="date"
+            min={new Date().toISOString().split('T')[0]}
             {...register('delivery_date')}
             error={errors.delivery_date?.message}
           />
@@ -244,10 +246,11 @@ export default function QuoteForm({ locale }: QuoteFormProps) {
 
       {/* Special Instructions */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="quote-special-instructions" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Special Instructions
         </label>
         <textarea
+          id="quote-special-instructions"
           {...register('special_instructions')}
           rows={3}
           placeholder="Any special handling, equipment requirements, or notes..."

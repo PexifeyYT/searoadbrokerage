@@ -93,7 +93,7 @@ export default function CarrierApplicationForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
-      <input type="text" {...register('_honey')} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+      <input type="text" {...register('_honey')} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
       {error && <Alert variant="error">{error}</Alert>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -145,10 +145,11 @@ export default function CarrierApplicationForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="carrier-service-areas" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Primary Service Areas
         </label>
         <textarea
+          id="carrier-service-areas"
           {...register('service_areas')}
           rows={2}
           placeholder="e.g. California, Nevada, Arizona, Pacific Northwest"

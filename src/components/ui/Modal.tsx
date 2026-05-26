@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useId } from 'react';
 import ReactDOM from 'react-dom';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -21,6 +21,8 @@ const sizeClasses = {
 };
 
 export default function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
+  const titleId = useId();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -32,6 +34,13 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
@@ -39,6 +48,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
+      aria-labelledby={title ? titleId : undefined}
     >
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -52,9 +62,10 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
       >
         {title && (
           <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-dark-border">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-dark-text">{title}</h2>
+            <h2 id={titleId} className="text-lg font-semibold text-gray-900 dark:text-dark-text">{title}</h2>
             <button
               onClick={onClose}
+              aria-label="Close dialog"
               className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
             >
               <X className="h-5 w-5" />
@@ -64,6 +75,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
         {!title && (
           <button
             onClick={onClose}
+            aria-label="Close dialog"
             className="absolute top-3 right-3 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
           >
             <X className="h-5 w-5" />

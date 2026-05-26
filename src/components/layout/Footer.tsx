@@ -50,10 +50,10 @@ export default async function Footer({ locale }: FooterProps) {
                 { label: 'Full Truckload (FTL)', href: '/services/full-truckload' },
                 { label: 'Less Than Truckload', href: '/services/less-than-truckload' },
                 { label: 'Intermodal', href: '/services/intermodal' },
-                { label: 'Flatbed', href: '/services/specialized' },
+                { label: 'Flatbed', href: '/services/flatbed' },
                 { label: 'Specialized Freight', href: '/services/specialized' },
               ].map((item) => (
-                <li key={item.href}>
+                <li key={item.label}>
                   <Link
                     href={navLink(item.href)}
                     className="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-1.5 group"
@@ -129,8 +129,8 @@ export default async function Footer({ locale }: FooterProps) {
         <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-500">&copy; {new Date().getFullYear()} {t('copyright')}</p>
           <div className="flex items-center gap-4">
-            <Link href={navLink('/privacy')} className="text-xs text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</Link>
-            <Link href={navLink('/terms')} className="text-xs text-gray-500 hover:text-gray-400 transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="text-xs text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-xs text-gray-500 hover:text-gray-400 transition-colors">Terms of Service</Link>
             <p className="text-xs text-gray-600">{t('licensed')}</p>
           </div>
         </div>

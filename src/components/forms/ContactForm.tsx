@@ -59,7 +59,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
-      <input type="text" {...register('_honey')} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+      <input type="text" {...register('_honey')} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
       {error && <Alert variant="error">{error}</Alert>}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Input
@@ -95,10 +95,11 @@ export default function ContactForm() {
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Message <span className="text-red-500">*</span>
         </label>
         <textarea
+          id="contact-message"
           {...register('message')}
           rows={5}
           placeholder="Tell us how we can help..."
