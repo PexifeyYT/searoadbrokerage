@@ -39,8 +39,41 @@ export default function AdminQuotesPage() {
   return (
     <>
       <AdminHeader title="Quote Requests" />
-      <main className="flex-1 p-6 overflow-y-auto">
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
+
+        {/* Mobile cards */}
+        <div className="sm:hidden space-y-3">
+          {quotes.length === 0 && (
+            <p className="text-center text-gray-500 py-10 text-sm">No quote requests yet</p>
+          )}
+          {quotes.map((q) => (
+            <div key={q.id} className="bg-white rounded-xl border border-gray-200 p-4">
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div>
+                  <p className="font-semibold text-gray-900 text-sm">{q.full_name}</p>
+                  <p className="text-xs text-gray-500">{q.email}</p>
+                </div>
+                <span className="font-mono text-xs text-blue-600 flex-shrink-0">{q.quote_ref}</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-3">
+                {q.origin_city}, {q.origin_state} → {q.destination_city}, {q.destination_state}
+              </p>
+              <div className="flex items-center justify-between gap-2">
+                <select
+                  value={q.status}
+                  onChange={(e) => updateStatus(q.id, e.target.value)}
+                  className={cn('text-xs px-2 py-1.5 rounded-lg border-0 font-medium cursor-pointer flex-shrink-0', statusColors[q.status])}
+                >
+                  {statusOptions.map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+                <span className="text-xs text-gray-400">{q.shipment_type} · {formatDate(q.pickup_date)}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop table */}
+        <div className="hidden sm:block bg-white rounded-xl border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -69,9 +102,7 @@ export default function AdminQuotesPage() {
                         onChange={(e) => updateStatus(q.id, e.target.value)}
                         className={cn('text-xs px-2 py-1 rounded border-0 font-medium cursor-pointer', statusColors[q.status])}
                       >
-                        {statusOptions.map((s) => (
-                          <option key={s} value={s}>{s}</option>
-                        ))}
+                        {statusOptions.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </td>
                     <td className="px-4 py-3 text-gray-500 text-xs">{formatDate(q.created_at)}</td>

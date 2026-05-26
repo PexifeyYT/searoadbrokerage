@@ -58,8 +58,8 @@ export default function AdminLoadsPage() {
   return (
     <>
       <AdminHeader title="Load Board" />
-      <main className="flex-1 p-6 overflow-y-auto">
-        <div className="flex items-center justify-between mb-6">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
           <h2 className="text-lg font-semibold text-gray-900">All Loads</h2>
           <Link href="/admin/loads/new">
             <Button size="sm">

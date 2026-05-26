@@ -33,8 +33,8 @@ export default function AdminMessagesPage() {
   return (
     <>
       <AdminHeader title="Contact Messages" />
-      <main className="flex-1 p-6 overflow-y-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-full">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* List */}
           <div className="lg:col-span-1 bg-white rounded-xl border border-gray-200 overflow-hidden">
             <div className="border-b border-gray-200 px-4 py-3">
@@ -68,7 +68,7 @@ export default function AdminMessagesPage() {
           </div>
 
           {/* Detail */}
-          <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
+          <div className={`lg:col-span-2 bg-white rounded-xl border border-gray-200 p-5 ${!selected ? 'hidden lg:flex' : ''}`}>
             {selected ? (
               <div>
                 <h2 className="text-lg font-semibold text-gray-900 mb-1">{selected.subject}</h2>

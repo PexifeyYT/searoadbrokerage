@@ -14,15 +14,14 @@ const statusColors: Record<string, string> = {
   under_review: 'bg-blue-100 text-blue-700',
 };
 
+const statusOptions = ['pending', 'under_review', 'approved', 'rejected'];
+
 export default function AdminCarriersPage() {
   const [carriers, setCarriers] = useState<CarrierApplication[]>([]);
 
   const fetchCarriers = async () => {
     const res = await adminFetch('/api/admin/carriers');
-    if (res.ok) {
-      const data = await res.json();
-      setCarriers(data as CarrierApplication[]);
-    }
+    if (res.ok) setCarriers(await res.json() as CarrierApplication[]);
   };
 
   useEffect(() => { fetchCarriers(); }, []);
@@ -38,8 +37,42 @@ export default function AdminCarriersPage() {
   return (
     <>
       <AdminHeader title="Carrier Applications" />
-      <main className="flex-1 p-6 overflow-y-auto">
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
+
+        {/* Mobile cards */}
+        <div className="sm:hidden space-y-3">
+          {carriers.length === 0 && (
+            <p className="text-center text-gray-500 py-10 text-sm">No carrier applications yet</p>
+          )}
+          {carriers.map((c) => (
+            <div key={c.id} className="bg-white rounded-xl border border-gray-200 p-4">
+              <div className="flex items-start justify-between mb-1">
+                <p className="font-semibold text-gray-900">{c.company_name}</p>
+                <select
+                  value={c.status}
+                  onChange={(e) => updateStatus(c.id, e.target.value)}
+                  className={cn('text-xs px-2 py-1 rounded-lg border-0 font-medium cursor-pointer flex-shrink-0', statusColors[c.status])}
+                >
+                  {statusOptions.map((s) => <option key={s} value={s}>{s.replace('_', ' ')}</option>)}
+                </select>
+              </div>
+              <p className="text-sm text-gray-700 mb-0.5">{c.contact_name}</p>
+              <a href={`mailto:${c.email}`} className="text-xs text-blue-600 block mb-2">{c.email}</a>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
+                <span>DOT: {c.dot_number}</span>
+                <span>MC: {c.mc_number}</span>
+                <span>Fleet: {c.fleet_size}</span>
+                <span>{formatDate(c.created_at)}</span>
+              </div>
+              {c.equipment_types?.length > 0 && (
+                <p className="text-xs text-gray-500 mt-1">{c.equipment_types.join(', ')}</p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop table */}
+        <div className="hidden sm:block bg-white rounded-xl border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -71,7 +104,7 @@ export default function AdminCarriersPage() {
                         onChange={(e) => updateStatus(c.id, e.target.value)}
                         className={cn('text-xs px-2 py-1 rounded border-0 font-medium cursor-pointer', statusColors[c.status])}
                       >
-                        {['pending', 'under_review', 'approved', 'rejected'].map((s) => (
+                        {statusOptions.map((s) => (
                           <option key={s} value={s}>{s.replace('_', ' ')}</option>
                         ))}
                       </select>
