@@ -10,7 +10,7 @@
   },
   "hero": {
     "headline": "Solutions de fret fiables en Amérique du Nord",
-    "subheadline": "Services professionnels de courtage de fret avec USDOT #4398936 | MC-1726540",
+    "subheadline": "Courtage de fret professionnel reliant les expéditeurs aux transporteurs de confiance. Tarifs compétitifs, suivi en temps réel et support 24/7.",
     "cta1": "Obtenir un devis",
     "cta2": "Devenir transporteur",
     "badge": "Courtier de fret agréé et cautionné | Enregistré auprès de la FMCSA"
@@ -19,11 +19,28 @@
     "title": "Pourquoi Sea Road Brokerage?",
     "subtitle": "Nous combinons expertise et technologie pour offrir des solutions de transport adaptées à votre entreprise.",
     "nationwide": "Couverture nationale",
+    "nationwideDesc": "Solutions de transport couvrant les 48 États contigus plus les routes transfrontalières Canada et Mexique.",
     "support": "Support 24/7",
+    "supportDesc": "Service client et soutien à la répartition 24h/24. Nous sommes toujours là quand vous avez besoin de nous.",
     "rates": "Tarifs compétitifs",
+    "ratesDesc": "Accédez à notre réseau de 500+ transporteurs pour les meilleurs tarifs sans compromis sur la fiabilité.",
     "tracking": "Suivi en temps réel",
+    "trackingDesc": "Suivi des expéditions en direct avec des mises à jour proactives. Sachez où se trouve votre fret à tout moment.",
     "licensed": "Agréé et assuré",
-    "payment": "Paiement rapide"
+    "licensedDesc": "Courtier de fret FMCSA entièrement agréé avec cautionnement et assurance appropriés. Votre fret est protégé.",
+    "payment": "Paiement rapide",
+    "paymentDesc": "Paiements rapides aux transporteurs avec des options flexibles incluant QuickPay. Gardez votre trésorerie en mouvement."
+  },
+  "home": {
+    "servicesTitle": "Nos Services",
+    "servicesSubtitle": "Des solutions de transport complètes adaptées à vos besoins d'expédition.",
+    "statsTitle": "La confiance des expéditeurs partout au pays",
+    "statsSubtitle": "Sea Road Brokerage INC est un courtier de fret entièrement agréé et cautionné, engagé à l'excellence sur chaque chargement.",
+    "verifiedCredentials": "Accréditations vérifiées",
+    "ctaTitle": "Prêt à expédier?",
+    "ctaSubtitle": "Obtenez un devis gratuit en quelques minutes. Notre équipe est prête à trouver la meilleure solution pour vos besoins de fret.",
+    "ctaButton1": "Obtenir un devis gratuit",
+    "ctaButton2": "Nous contacter"
   },
   "footer": {
     "company": "Services professionnels de courtage de fret reliant les expéditeurs et les transporteurs en Amérique du Nord.",
@@ -42,7 +59,7 @@
   },
   "contact": {
     "title": "Contactez-nous",
-    "subtitle": "Vous avez des questions? Notre équipe est prête à vous aider.",
+    "subtitle": "Vous avez des questions? Notre équipe est prête à vous aider avec vos besoins de fret.",
     "sendMessage": "Envoyez-nous un message",
     "submit": "Envoyer le message"
   },

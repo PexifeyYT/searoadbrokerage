@@ -10,20 +10,37 @@
   },
   "hero": {
     "headline": "Soluciones de Carga Confiables en Toda Norteamérica",
-    "subheadline": "Servicios profesionales de corretaje de carga con USDOT #4398936 | MC-1726540",
+    "subheadline": "Corretaje de carga profesional que conecta expedidores con transportistas de confianza. Tarifas competitivas, seguimiento en tiempo real y soporte 24/7.",
     "cta1": "Obtener Cotización",
     "cta2": "Ser Transportista",
     "badge": "Corredor de Carga Autorizado y Asegurado | Registrado en FMCSA"
   },
   "features": {
     "title": "¿Por qué Sea Road Brokerage?",
-    "subtitle": "Combinamos experiencia en la industria con tecnología moderna para brindar soluciones de carga que funcionan.",
+    "subtitle": "Combinamos experiencia en la industria con tecnología moderna para brindar soluciones de carga que funcionan para su negocio.",
     "nationwide": "Cobertura Nacional",
+    "nationwideDesc": "Soluciones de carga que cubren los 48 estados contiguos más rutas transfronterizas con Canadá y México.",
     "support": "Soporte 24/7",
+    "supportDesc": "Servicio al cliente y despacho disponible las 24 horas. Siempre estamos aquí cuando nos necesita.",
     "rates": "Tarifas Competitivas",
+    "ratesDesc": "Acceda a nuestra red de 500+ transportistas para encontrar las mejores tarifas sin comprometer la confiabilidad.",
     "tracking": "Seguimiento en Tiempo Real",
+    "trackingDesc": "Seguimiento de envíos en vivo con actualizaciones proactivas. Sepa dónde está su carga en todo momento.",
     "licensed": "Licenciado y Asegurado",
-    "payment": "Pago Rápido"
+    "licensedDesc": "Corredor de carga FMCSA completamente autorizado con fianza y seguro adecuados. Su carga está protegida.",
+    "payment": "Pago Rápido",
+    "paymentDesc": "Pagos rápidos a transportistas con opciones flexibles incluyendo QuickPay. Mantenga su flujo de efectivo."
+  },
+  "home": {
+    "servicesTitle": "Nuestros Servicios",
+    "servicesSubtitle": "Soluciones de carga integrales adaptadas a sus necesidades de envío.",
+    "statsTitle": "La Confianza de Expedidores en Todo el País",
+    "statsSubtitle": "Sea Road Brokerage INC es un corredor de carga completamente autorizado y afianzado comprometido con la excelencia en cada carga.",
+    "verifiedCredentials": "Credenciales Verificadas",
+    "ctaTitle": "¿Listo para Enviar?",
+    "ctaSubtitle": "Obtenga una cotización gratuita en minutos. Nuestro equipo está listo para encontrar la mejor solución para sus necesidades de carga.",
+    "ctaButton1": "Obtener Cotización Gratuita",
+    "ctaButton2": "Contáctenos"
   },
   "footer": {
     "company": "Servicios profesionales de corretaje de carga que conectan a expedidores y transportistas en Norteamérica.",
@@ -31,14 +48,14 @@
     "quickLinks": "Enlaces Rápidos",
     "contact": "Contáctenos",
     "copyright": "Sea Road Brokerage INC. Todos los derechos reservados.",
-    "licensed": "Licenciado y Asegurado | Registrado en FMCSA"
+    "licensed": "Autorizado y Afianzado | Registrado en FMCSA"
   },
   "quote": {
     "title": "Solicitar una Cotización",
     "subtitle": "Complete el formulario y nuestro equipo responderá en 2 horas hábiles.",
     "submit": "Enviar Solicitud de Cotización",
     "success": "¡Cotización enviada exitosamente!",
-    "error": "Error al enviar la cotización. Por favor intente nuevamente."
+    "error": "Error al enviar la cotización. Por favor intente de nuevo."
   },
   "contact": {
     "title": "Contáctenos",

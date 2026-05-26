@@ -1,11 +1,14 @@
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import { Truck, Phone, Mail, MapPin } from 'lucide-react';
 
 interface FooterProps {
   locale: string;
 }
 
-export default function Footer({ locale }: FooterProps) {
+export default async function Footer({ locale }: FooterProps) {
+  const t = await getTranslations('footer');
+  const tNav = await getTranslations('nav');
   const navLink = (href: string) => `/${locale}${href}`;
 
   return (
@@ -24,7 +27,7 @@ export default function Footer({ locale }: FooterProps) {
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-3">
-              Professional freight brokerage services connecting shippers and carriers across North America.
+              {t('company')}
             </p>
             <div className="space-y-1 text-xs text-gray-400">
               <p>USDOT: <span className="text-white font-medium">#4398936</span></p>
@@ -34,14 +37,14 @@ export default function Footer({ locale }: FooterProps) {
 
           {/* Services */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Services</h3>
+            <h3 className="font-semibold text-white mb-4">{t('services')}</h3>
             <ul className="space-y-2 text-sm">
               {[
                 { label: 'Full Truckload (FTL)', href: '/services/full-truckload' },
                 { label: 'Less Than Truckload', href: '/services/less-than-truckload' },
                 { label: 'Intermodal', href: '/services/intermodal' },
                 { label: 'Specialized Freight', href: '/services/specialized' },
-                { label: 'All Services', href: '/services' },
+                { label: tNav('services'), href: '/services' },
               ].map((item) => (
                 <li key={item.href}>
                   <Link
@@ -57,14 +60,14 @@ export default function Footer({ locale }: FooterProps) {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Quick Links</h3>
+            <h3 className="font-semibold text-white mb-4">{t('quickLinks')}</h3>
             <ul className="space-y-2 text-sm">
               {[
-                { label: 'Get a Quote', href: '/quote' },
-                { label: 'Load Board', href: '/load-board' },
-                { label: 'Become a Carrier', href: '/carriers' },
-                { label: 'About Us', href: '/about' },
-                { label: 'Contact', href: '/contact' },
+                { label: tNav('getQuote'), href: '/quote' },
+                { label: tNav('loadBoard'), href: '/load-board' },
+                { label: tNav('carriers'), href: '/carriers' },
+                { label: tNav('about'), href: '/about' },
+                { label: tNav('contact'), href: '/contact' },
               ].map((item) => (
                 <li key={item.href}>
                   <Link
@@ -80,7 +83,7 @@ export default function Footer({ locale }: FooterProps) {
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Contact Us</h3>
+            <h3 className="font-semibold text-white mb-4">{t('contact')}</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex gap-2 items-start">
                 <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-blue-400" />
@@ -109,8 +112,8 @@ export default function Footer({ locale }: FooterProps) {
       {/* Bottom bar */}
       <div className="border-t border-gray-800 dark:border-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
-          <p>&copy; {new Date().getFullYear()} Sea Road Brokerage INC. All rights reserved.</p>
-          <p>Licensed & Bonded | FMCSA Registered</p>
+          <p>&copy; {new Date().getFullYear()} {t('copyright')}</p>
+          <p>{t('licensed')}</p>
         </div>
       </div>
     </footer>

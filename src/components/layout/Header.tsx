@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Truck, Menu, X, ChevronDown, Phone } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import ThemeToggle from './ThemeToggle';
 import LanguageSelector from './LanguageSelector';
 import Button from '../ui/Button';
@@ -11,32 +12,33 @@ interface HeaderProps {
   locale: string;
 }
 
-const serviceGroups = [
-  {
-    title: 'Truckload',
-    items: [
-      { label: 'Full Truckload (FTL)', href: '/services/full-truckload' },
-      { label: 'Less Than Truckload (LTL)', href: '/services/less-than-truckload' },
-    ],
-  },
-  {
-    title: 'Specialty',
-    items: [
-      { label: 'Intermodal', href: '/services/intermodal' },
-      { label: 'Specialized Freight', href: '/services/specialized' },
-    ],
-  },
-  {
-    title: 'Overview',
-    items: [{ label: 'All Services', href: '/services' }],
-  },
-];
-
 export default function Header({ locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const t = useTranslations('nav');
 
   const navLink = (href: string) => `/${locale}${href}`;
+
+  const serviceGroups = [
+    {
+      title: 'Truckload',
+      items: [
+        { label: 'Full Truckload (FTL)', href: '/services/full-truckload' },
+        { label: 'Less Than Truckload (LTL)', href: '/services/less-than-truckload' },
+      ],
+    },
+    {
+      title: 'Specialty',
+      items: [
+        { label: 'Intermodal', href: '/services/intermodal' },
+        { label: 'Specialized Freight', href: '/services/specialized' },
+      ],
+    },
+    {
+      title: 'Overview',
+      items: [{ label: t('services'), href: '/services' }],
+    },
+  ];
 
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-dark-surface border-b border-gray-200 dark:border-dark-border shadow-sm transition-colors duration-200">
@@ -74,14 +76,13 @@ export default function Header({ locale }: HeaderProps) {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {/* Services dropdown */}
             <div className="relative" onMouseLeave={() => setServicesOpen(false)}>
               <button
                 onMouseEnter={() => setServicesOpen(true)}
                 onClick={() => setServicesOpen(!servicesOpen)}
                 className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
-                Services <ChevronDown className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
+                {t('services')} <ChevronDown className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
               </button>
               {servicesOpen && (
                 <div className="absolute top-full left-0 mt-1 w-72 bg-white dark:bg-dark-surface rounded-xl shadow-xl border border-gray-200 dark:border-dark-border p-4 grid gap-4">
@@ -110,32 +111,32 @@ export default function Header({ locale }: HeaderProps) {
               href={navLink('/carriers')}
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
-              Carriers
+              {t('carriers')}
             </Link>
             <Link
               href={navLink('/load-board')}
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
-              Load Board
+              {t('loadBoard')}
             </Link>
             <Link
               href={navLink('/about')}
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
-              About
+              {t('about')}
             </Link>
             <Link
               href={navLink('/contact')}
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
-              Contact
+              {t('contact')}
             </Link>
           </nav>
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
             <Link href={navLink('/quote')}>
-              <Button size="md">Get a Quote</Button>
+              <Button size="md">{t('getQuote')}</Button>
             </Link>
           </div>
 
@@ -158,40 +159,40 @@ export default function Header({ locale }: HeaderProps) {
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => setMobileOpen(false)}
             >
-              Services
+              {t('services')}
             </Link>
             <Link
               href={navLink('/carriers')}
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => setMobileOpen(false)}
             >
-              Carriers
+              {t('carriers')}
             </Link>
             <Link
               href={navLink('/load-board')}
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => setMobileOpen(false)}
             >
-              Load Board
+              {t('loadBoard')}
             </Link>
             <Link
               href={navLink('/about')}
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => setMobileOpen(false)}
             >
-              About
+              {t('about')}
             </Link>
             <Link
               href={navLink('/contact')}
               className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => setMobileOpen(false)}
             >
-              Contact
+              {t('contact')}
             </Link>
             <div className="pt-2">
               <Link href={navLink('/quote')} onClick={() => setMobileOpen(false)}>
                 <Button className="w-full" size="md">
-                  Get a Quote
+                  {t('getQuote')}
                 </Button>
               </Link>
             </div>

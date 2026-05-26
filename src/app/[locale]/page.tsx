@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import { Truck, Package, Container, Layout, Thermometer, Wrench } from 'lucide-react';
 import Hero from '@/components/features/Hero';
 import FeatureGrid from '@/components/features/FeatureGrid';
@@ -11,47 +12,49 @@ interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
-const services = [
-  {
-    icon: Truck,
-    title: 'Full Truckload (FTL)',
-    description: 'Dedicated truckload solutions for full trailer capacity shipments. Faster transit times and exclusive use of trailer.',
-    href: '/services/full-truckload',
-  },
-  {
-    icon: Package,
-    title: 'Less Than Truckload (LTL)',
-    description: 'Cost-effective shipping for smaller loads. Share trailer space and pay only for what you use.',
-    href: '/services/less-than-truckload',
-  },
-  {
-    icon: Container,
-    title: 'Intermodal',
-    description: 'Combine rail and truck for long-haul efficiency. Reduce costs on coast-to-coast shipments.',
-    href: '/services/intermodal',
-  },
-  {
-    icon: Layout,
-    title: 'Flatbed',
-    description: 'Open flatbed solutions for oversized, heavy, or irregularly shaped freight.',
-    href: '/services/specialized',
-  },
-  {
-    icon: Thermometer,
-    title: 'Temperature Controlled',
-    description: 'Refrigerated and temperature-sensitive freight handled with precision and care.',
-    href: '/services/specialized',
-  },
-  {
-    icon: Wrench,
-    title: 'Specialized Freight',
-    description: 'Hazmat, oversized loads, and cross-border shipments handled by experienced specialists.',
-    href: '/services/specialized',
-  },
-];
-
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
+  const t = await getTranslations('home');
+
+  const services = [
+    {
+      icon: Truck,
+      title: 'Full Truckload (FTL)',
+      description: 'Dedicated truckload solutions for full trailer capacity shipments. Faster transit times and exclusive use of trailer.',
+      href: '/services/full-truckload',
+    },
+    {
+      icon: Package,
+      title: 'Less Than Truckload (LTL)',
+      description: 'Cost-effective shipping for smaller loads. Share trailer space and pay only for what you use.',
+      href: '/services/less-than-truckload',
+    },
+    {
+      icon: Container,
+      title: 'Intermodal',
+      description: 'Combine rail and truck for long-haul efficiency. Reduce costs on coast-to-coast shipments.',
+      href: '/services/intermodal',
+    },
+    {
+      icon: Layout,
+      title: 'Flatbed',
+      description: 'Open flatbed solutions for oversized, heavy, or irregularly shaped freight.',
+      href: '/services/specialized',
+    },
+    {
+      icon: Thermometer,
+      title: 'Temperature Controlled',
+      description: 'Refrigerated and temperature-sensitive freight handled with precision and care.',
+      href: '/services/specialized',
+    },
+    {
+      icon: Wrench,
+      title: 'Specialized Freight',
+      description: 'Hazmat, oversized loads, and cross-border shipments handled by experienced specialists.',
+      href: '/services/specialized',
+    },
+  ];
+
   return (
     <>
       <Hero locale={locale} />
@@ -63,10 +66,10 @@ export default async function HomePage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Our Services
+              {t('servicesTitle')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Comprehensive freight solutions tailored to your shipping needs.
+              {t('servicesSubtitle')}
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -88,10 +91,10 @@ export default async function HomePage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Trusted by Shippers Nationwide
+              {t('statsTitle')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
-              Sea Road Brokerage INC is a fully licensed and bonded freight broker committed to delivering excellence on every load.
+              {t('statsSubtitle')}
             </p>
             <StatsCounter />
           </div>
@@ -99,7 +102,7 @@ export default async function HomePage({ params }: PageProps) {
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800">
             <div className="text-center sm:text-left">
               <p className="text-sm font-medium text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
-                Verified Credentials
+                {t('verifiedCredentials')}
               </p>
               <p className="text-gray-900 dark:text-white font-semibold">
                 USDOT: <span className="text-blue-600 dark:text-blue-400">#4398936</span>
@@ -114,14 +117,14 @@ export default async function HomePage({ params }: PageProps) {
       {/* CTA Section */}
       <section className="py-16 bg-blue-700 dark:bg-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Ship?</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('ctaTitle')}</h2>
           <p className="text-blue-100 mb-8 max-w-xl mx-auto">
-            Get a free quote in minutes. Our team is standing by to find the best solution for your freight needs.
+            {t('ctaSubtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <Link href={`/${locale}/quote`}>
               <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50 border-transparent w-full sm:w-auto">
-                Get a Free Quote
+                {t('ctaButton1')}
               </Button>
             </Link>
             <Link href={`/${locale}/contact`}>
@@ -130,7 +133,7 @@ export default async function HomePage({ params }: PageProps) {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 w-full sm:w-auto"
               >
-                Contact Us
+                {t('ctaButton2')}
               </Button>
             </Link>
           </div>

@@ -10,7 +10,7 @@
   },
   "hero": {
     "headline": "Reliable Freight Solutions Across North America",
-    "subheadline": "Professional freight brokerage services with USDOT #4398936 | MC-1726540",
+    "subheadline": "Professional freight brokerage connecting shippers with trusted carriers. Competitive rates, real-time tracking, and 24/7 support.",
     "cta1": "Get a Quote",
     "cta2": "Become a Carrier",
     "badge": "Licensed & Bonded Freight Broker | FMCSA Registered"
@@ -19,11 +19,28 @@
     "title": "Why Sea Road Brokerage?",
     "subtitle": "We combine industry expertise with modern technology to deliver freight solutions that work for your business.",
     "nationwide": "Nationwide Coverage",
+    "nationwideDesc": "Comprehensive freight solutions covering all 48 contiguous states plus cross-border Canada and Mexico routes.",
     "support": "24/7 Support",
+    "supportDesc": "Round-the-clock customer service and dispatch support. We're always here when you need us.",
     "rates": "Competitive Rates",
+    "ratesDesc": "Access our network of 500+ carriers to find the best rates without compromising on reliability.",
     "tracking": "Real-time Tracking",
+    "trackingDesc": "Live shipment tracking with proactive updates. Know where your freight is at all times.",
     "licensed": "Licensed & Insured",
-    "payment": "Quick Payment"
+    "licensedDesc": "Fully licensed FMCSA freight broker with proper bonding and insurance. Your freight is protected.",
+    "payment": "Quick Payment",
+    "paymentDesc": "Fast carrier payments with flexible options including QuickPay. Keep your cash flow moving."
+  },
+  "home": {
+    "servicesTitle": "Our Services",
+    "servicesSubtitle": "Comprehensive freight solutions tailored to your shipping needs.",
+    "statsTitle": "Trusted by Shippers Nationwide",
+    "statsSubtitle": "Sea Road Brokerage INC is a fully licensed and bonded freight broker committed to delivering excellence on every load.",
+    "verifiedCredentials": "Verified Credentials",
+    "ctaTitle": "Ready to Ship?",
+    "ctaSubtitle": "Get a free quote in minutes. Our team is standing by to find the best solution for your freight needs.",
+    "ctaButton1": "Get a Free Quote",
+    "ctaButton2": "Contact Us"
   },
   "footer": {
     "company": "Professional freight brokerage services connecting shippers and carriers across North America.",
