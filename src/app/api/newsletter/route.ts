@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 import { z } from 'zod';
 
 const schema = z.object({
@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { email } = schema.parse(body);
 
-    const { error } = await supabaseAdmin
+    const { error } = await supabase
       .from('newsletter_subscribers')
       .upsert({ email }, { onConflict: 'email', ignoreDuplicates: true });
 

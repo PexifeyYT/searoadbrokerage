@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 import { z } from 'zod';
 
 const schema = z.object({
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     const { _honey: _h, ...body } = result.data;
 
-    const { error: dbError } = await supabaseAdmin.from('contact_messages').insert({
+    const { error: dbError } = await supabase.from('contact_messages').insert({
       name: body.name,
       email: body.email,
       phone: body.phone || null,

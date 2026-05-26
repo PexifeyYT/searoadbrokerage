@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase';
 import { verifyAdminRequest } from '@/lib/admin-auth';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const admin = await verifyAdminRequest(req);
-  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const ctx = await verifyAdminRequest(req);
+  if (!ctx) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await params;
-  const { data, error } = await supabaseAdmin.from('quote_requests').select('*').eq('id', id).single();
+  const { data, error } = await ctx.db.from('quote_requests').select('*').eq('id', id).single();
   if (error) return NextResponse.json({ error: error.message }, { status: 404 });
   return NextResponse.json(data);
 }
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const admin = await verifyAdminRequest(req);
-  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const ctx = await verifyAdminRequest(req);
+  if (!ctx) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await params;
   const body = await req.json();
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await ctx.db
     .from('quote_requests')
     .update({ ...body, updated_at: new Date().toISOString() })
     .eq('id', id)

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 import { generateQuoteRef } from '@/lib/utils';
 import { z } from 'zod';
 
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     const quote_ref = generateQuoteRef();
 
-    const { error: dbError } = await supabaseAdmin
+    const { error: dbError } = await supabase
       .from('quote_requests')
       .insert({
         quote_ref,
