@@ -1,10 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
+import { z } from 'zod';
+
+const schema = z.object({
+  name: z.string().min(2).max(100),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  subject: z.string().min(2).max(200),
+  message: z.string().min(10).max(5000),
+  _honey: z.string().optional(),
+});
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    if (body._honey) return NextResponse.json({ error: 'Bot detected' }, { status: 400 });
+    const raw = await req.json();
+    if (raw._honey) return NextResponse.json({ error: 'Bot detected' }, { status: 400 });
+
+    const result = schema.safeParse(raw);
+    if (!result.success) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    }
+
+    const { _honey: _h, ...body } = result.data;
 
     const { error: dbError } = await supabaseAdmin.from('contact_messages').insert({
       name: body.name,

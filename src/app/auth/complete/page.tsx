@@ -16,11 +16,12 @@ function CompleteAuth() {
     supabase.auth.exchangeCodeForSession(code).then(async ({ data, error }) => {
       if (error || !data.session) { router.replace('/login?error=oauth_failed'); return; }
 
-      const email = data.session.user.email ?? '';
       const res = await fetch('/api/admin/auth/verify', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${data.session.access_token}`,
+        },
       });
       router.replace(res.ok ? '/admin' : '/account');
     });

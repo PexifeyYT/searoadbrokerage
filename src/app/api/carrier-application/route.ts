@@ -1,10 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
+import { z } from 'zod';
+
+const schema = z.object({
+  company_name: z.string().min(2).max(200),
+  contact_name: z.string().min(2).max(100),
+  email: z.string().email(),
+  phone: z.string().min(7).max(20),
+  dot_number: z.string().min(1).max(20),
+  mc_number: z.string().min(1).max(20),
+  fleet_size: z.coerce.number().int().min(1),
+  equipment_types: z.array(z.string()).min(1),
+  insurance_provider: z.string().optional(),
+  insurance_expiry: z.string().optional(),
+  service_areas: z.string().optional(),
+  _honey: z.string().optional(),
+});
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    if (body._honey) return NextResponse.json({ error: 'Bot detected' }, { status: 400 });
+    const raw = await req.json();
+    if (raw._honey) return NextResponse.json({ error: 'Bot detected' }, { status: 400 });
+
+    const result = schema.safeParse(raw);
+    if (!result.success) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    }
+
+    const { _honey: _h, ...body } = result.data;
 
     const { error: dbError } = await supabaseAdmin.from('carrier_applications').insert({
       company_name: body.company_name,
@@ -44,7 +67,7 @@ Phone: ${body.phone}
 DOT: ${body.dot_number}
 MC: ${body.mc_number}
 Fleet Size: ${body.fleet_size}
-Equipment: ${body.equipment_types?.join(', ')}
+Equipment: ${body.equipment_types.join(', ')}
 Service Areas: ${body.service_areas || 'N/A'}
           `.trim(),
         }),

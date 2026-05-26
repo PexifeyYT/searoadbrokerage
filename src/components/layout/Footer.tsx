@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { Truck, Phone, Mail, MapPin, Shield, ExternalLink } from 'lucide-react';
+import { Truck, Phone, Mail, MapPin, Shield } from 'lucide-react';
 import NewsletterSignup from '@/components/features/NewsletterSignup';
 
 interface FooterProps {

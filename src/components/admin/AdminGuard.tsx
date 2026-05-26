@@ -22,11 +22,13 @@ export default function AdminGuard({ children }: AdminGuardProps) {
         return;
       }
 
-      // Check admin
+      // Check admin — send token so server verifies identity
       const res = await fetch('/api/admin/auth/verify', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: session.user.email }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
       });
 
       if (!res.ok) {
