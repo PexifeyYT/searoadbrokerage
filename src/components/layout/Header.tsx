@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Truck, Menu, X, ChevronDown, Phone, ArrowRight } from 'lucide-react';
+import { Truck, Menu, X, ChevronDown, Phone, ArrowRight, Lock } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import ThemeToggle from './ThemeToggle';
 import LanguageSelector from './LanguageSelector';
@@ -61,6 +61,14 @@ export default function Header({ locale }: HeaderProps) {
               <Phone className="h-3 w-3 text-blue-400" />
               (209) 920-0003
             </a>
+            <span className="text-gray-700">|</span>
+            <Link
+              href="/login"
+              className="flex items-center gap-1 text-gray-400 hover:text-white transition-colors text-xs font-medium"
+            >
+              <Lock className="h-3 w-3" />
+              Admin
+            </Link>
             <span className="text-gray-700">|</span>
             <ThemeToggle />
             <LanguageSelector currentLocale={locale} />
@@ -207,6 +215,14 @@ export default function Header({ locale }: HeaderProps) {
               className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3.5 rounded-xl transition-colors shadow-md text-sm"
             >
               {t('getQuote')} <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/login"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-700 font-medium px-5 py-3 rounded-xl transition-colors text-sm"
+            >
+              <Lock className="h-4 w-4" />
+              Admin Login
             </Link>
             <div className="flex items-center justify-between">
               <ThemeToggle />
