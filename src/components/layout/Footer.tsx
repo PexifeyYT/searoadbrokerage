@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { Truck, Phone, Mail, MapPin } from 'lucide-react';
+import { Truck, Phone, Mail, MapPin, Shield, ExternalLink } from 'lucide-react';
 
 interface FooterProps {
   locale: string;
@@ -12,45 +12,53 @@ export default async function Footer({ locale }: FooterProps) {
   const navLink = (href: string) => `/${locale}${href}`;
 
   return (
-    <footer className="bg-gray-900 dark:bg-gray-950 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="bg-blue-600 rounded-lg p-2">
+    <footer className="bg-[#040A18] border-t border-white/8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+          {/* Brand column */}
+          <div className="lg:col-span-1">
+            <Link href={navLink('/')} className="inline-flex items-center gap-3 mb-5 group">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl p-2.5 shadow-lg shadow-blue-500/20">
                 <Truck className="h-5 w-5 text-white" />
               </div>
               <div>
-                <p className="font-bold text-white text-sm">Sea Road Brokerage</p>
-                <p className="text-xs text-gray-400">INC</p>
+                <p className="font-black text-white text-sm leading-tight">Sea Road Brokerage</p>
+                <p className="text-xs text-blue-400 font-semibold tracking-widest uppercase">INC</p>
               </div>
-            </div>
-            <p className="text-sm leading-relaxed mb-3">
+            </Link>
+            <p className="text-sm text-gray-400 leading-relaxed mb-5">
               {t('company')}
             </p>
-            <div className="space-y-1 text-xs text-gray-400">
-              <p>USDOT: <span className="text-white font-medium">#4398936</span></p>
-              <p>MC: <span className="text-white font-medium">MC-1726540</span></p>
+            <div className="flex flex-col gap-2">
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-3 py-2 w-fit">
+                <Shield className="h-3.5 w-3.5 text-blue-400 flex-shrink-0" />
+                <span className="text-xs text-gray-300">USDOT <span className="text-blue-400 font-bold">#4398936</span></span>
+              </div>
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-3 py-2 w-fit">
+                <Shield className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0" />
+                <span className="text-xs text-gray-300">MC <span className="text-emerald-400 font-bold">MC-1726540</span></span>
+              </div>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="font-semibold text-white mb-4">{t('services')}</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="font-bold text-white text-sm uppercase tracking-widest mb-5">{t('services')}</h3>
+            <ul className="space-y-3">
               {[
                 { label: 'Full Truckload (FTL)', href: '/services/full-truckload' },
                 { label: 'Less Than Truckload', href: '/services/less-than-truckload' },
                 { label: 'Intermodal', href: '/services/intermodal' },
+                { label: 'Flatbed', href: '/services/specialized' },
                 { label: 'Specialized Freight', href: '/services/specialized' },
-                { label: tNav('services'), href: '/services' },
               ].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={navLink(item.href)}
-                    className="hover:text-blue-400 transition-colors duration-200"
+                    className="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-1.5 group"
                   >
+                    <span className="h-px w-3 bg-gray-600 group-hover:bg-blue-400 group-hover:w-4 transition-all duration-200" />
                     {item.label}
                   </Link>
                 </li>
@@ -60,8 +68,8 @@ export default async function Footer({ locale }: FooterProps) {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-white mb-4">{t('quickLinks')}</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="font-bold text-white text-sm uppercase tracking-widest mb-5">{t('quickLinks')}</h3>
+            <ul className="space-y-3">
               {[
                 { label: tNav('getQuote'), href: '/quote' },
                 { label: tNav('loadBoard'), href: '/load-board' },
@@ -72,8 +80,9 @@ export default async function Footer({ locale }: FooterProps) {
                 <li key={item.href}>
                   <Link
                     href={navLink(item.href)}
-                    className="hover:text-blue-400 transition-colors duration-200"
+                    className="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-1.5 group"
                   >
+                    <span className="h-px w-3 bg-gray-600 group-hover:bg-blue-400 group-hover:w-4 transition-all duration-200" />
                     {item.label}
                   </Link>
                 </li>
@@ -83,23 +92,31 @@ export default async function Footer({ locale }: FooterProps) {
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold text-white mb-4">{t('contact')}</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex gap-2 items-start">
-                <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-blue-400" />
-                <span>22492 Road 19 Site# J<br />Chowchilla, California</span>
+            <h3 className="font-bold text-white text-sm uppercase tracking-widest mb-5">{t('contact')}</h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 items-start">
+                <div className="mt-0.5 bg-blue-500/15 rounded-lg p-1.5 flex-shrink-0">
+                  <MapPin className="h-3.5 w-3.5 text-blue-400" />
+                </div>
+                <span className="text-sm text-gray-400 leading-relaxed">
+                  22492 Road 19 Site# J<br />Chowchilla, California
+                </span>
               </li>
-              <li className="flex gap-2 items-center">
-                <Phone className="h-4 w-4 flex-shrink-0 text-blue-400" />
-                <a href="tel:+12099200003" className="hover:text-blue-400 transition-colors">
+              <li className="flex gap-3 items-center">
+                <div className="bg-blue-500/15 rounded-lg p-1.5 flex-shrink-0">
+                  <Phone className="h-3.5 w-3.5 text-blue-400" />
+                </div>
+                <a href="tel:+12099200003" className="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 whitespace-nowrap">
                   (209) 920-0003
                 </a>
               </li>
-              <li className="flex gap-2 items-center">
-                <Mail className="h-4 w-4 flex-shrink-0 text-blue-400" />
+              <li className="flex gap-3 items-center">
+                <div className="bg-blue-500/15 rounded-lg p-1.5 flex-shrink-0">
+                  <Mail className="h-3.5 w-3.5 text-blue-400" />
+                </div>
                 <a
                   href="mailto:searoadbrokerageinc@gmail.com"
-                  className="hover:text-blue-400 transition-colors break-all"
+                  className="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 break-all"
                 >
                   searoadbrokerageinc@gmail.com
                 </a>
@@ -107,13 +124,15 @@ export default async function Footer({ locale }: FooterProps) {
             </ul>
           </div>
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-gray-800 dark:border-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
-          <p>&copy; {new Date().getFullYear()} {t('copyright')}</p>
-          <p>{t('licensed')}</p>
+        {/* Bottom bar */}
+        <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-gray-500">&copy; {new Date().getFullYear()} {t('copyright')}</p>
+          <div className="flex items-center gap-4">
+            <Link href={navLink('/privacy')} className="text-xs text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</Link>
+            <Link href={navLink('/terms')} className="text-xs text-gray-500 hover:text-gray-400 transition-colors">Terms of Service</Link>
+            <p className="text-xs text-gray-600">{t('licensed')}</p>
+          </div>
         </div>
       </div>
     </footer>
