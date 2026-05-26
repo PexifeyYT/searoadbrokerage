@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { Truck, Phone, Mail, MapPin, Shield, ExternalLink } from 'lucide-react';
+import NewsletterSignup from '@/components/features/NewsletterSignup';
 
 interface FooterProps {
   locale: string;
@@ -123,6 +124,11 @@ export default async function Footer({ locale }: FooterProps) {
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* Newsletter */}
+        <div className="border-t border-white/8 pt-10 pb-8">
+          <NewsletterSignup />
         </div>
 
         {/* Bottom bar */}
