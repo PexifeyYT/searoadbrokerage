@@ -29,7 +29,7 @@ export default function AdminHeader({ title }: AdminHeaderProps) {
 
   return (
     <>
-      <AdminSidebar mobileOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <AdminSidebar mobileOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} mobileOnly />
       <header className="bg-white border-b border-gray-200 h-14 flex items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-3">
           <button
