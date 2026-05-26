@@ -57,7 +57,7 @@ export default function DashboardPage() {
   return (
     <>
       <AdminHeader title="Dashboard" />
-      <main className="flex-1 p-6 overflow-y-auto">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {metricCards.map((card) => {
             const Icon = card.icon;

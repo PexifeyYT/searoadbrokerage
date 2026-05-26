@@ -54,7 +54,7 @@ export default function AdminUsersPage() {
   return (
     <>
       <AdminHeader title="Admin Users" />
-      <main className="flex-1 p-6 overflow-y-auto">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Add User Form */}
           <div className="bg-white rounded-xl border border-gray-200 p-5">
@@ -88,9 +88,31 @@ export default function AdminUsersPage() {
             </form>
           </div>
 
-          {/* Users Table */}
+          {/* Users List */}
           <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <div className="overflow-x-auto">
+            {/* Mobile cards */}
+            <div className="sm:hidden divide-y divide-gray-100">
+              {users.length === 0 && (
+                <p className="text-center text-gray-500 py-10 text-sm">No admin users found</p>
+              )}
+              {users.map((u) => (
+                <div key={u.id} className="p-4">
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="font-medium text-gray-900 text-sm">{u.full_name}</p>
+                    <span className={`text-xs px-2 py-0.5 rounded font-medium ${u.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                      {u.is_active ? 'Active' : 'Inactive'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 mb-1">{u.email}</p>
+                  <div className="flex items-center gap-3 text-xs text-gray-400">
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded font-medium">{u.role}</span>
+                    <span>Last login: {u.last_login ? formatDate(u.last_login) : 'Never'}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Desktop table */}
+            <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-200 bg-gray-50">

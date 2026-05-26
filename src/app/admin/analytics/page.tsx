@@ -49,7 +49,7 @@ export default function AnalyticsPage() {
   return (
     <>
       <AdminHeader title="Analytics" />
-      <main className="flex-1 p-6 overflow-y-auto">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
         <div className="space-y-6">
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <h2 className="font-semibold text-gray-900 mb-4">Daily Quote Requests (Last 30 Days)</h2>

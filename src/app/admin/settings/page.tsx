@@ -39,7 +39,7 @@ export default function AdminSettingsPage() {
   return (
     <>
       <AdminHeader title="Settings" />
-      <main className="flex-1 p-6 overflow-y-auto">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
         <div className="max-w-2xl space-y-6">
           {/* Password Change */}
           <div className="bg-white rounded-xl border border-gray-200 p-6">

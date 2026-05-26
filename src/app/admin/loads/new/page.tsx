@@ -24,8 +24,8 @@ export default function NewLoadPage() {
   return (
     <>
       <AdminHeader title="Add New Load" />
-      <main className="flex-1 p-6 overflow-y-auto">
-        <div className="max-w-3xl bg-white rounded-xl border border-gray-200 p-6">
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
+        <div className="max-w-3xl bg-white rounded-xl border border-gray-200 p-4 sm:p-6">
           <LoadForm onSubmit={handleSubmit} isLoading={saving} />
         </div>
       </main>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Truck, FileText, Package, LogOut, Clock, CheckCircle, XCircle, AlertCircle, User, ArrowRight } from 'lucide-react';
 
@@ -33,6 +34,8 @@ const statusConfig: Record<string, { icon: typeof Clock; color: string; label: s
 
 export default function AccountPage() {
   const router = useRouter();
+  const params = useParams();
+  const locale = (params?.locale as string) || 'en-us';
   const [user, setUser] = useState<{ email: string; name: string } | null>(null);
   const [quotes, setQuotes] = useState<QuoteRequest[]>([]);
   const [loading, setLoading] = useState(true);
@@ -125,7 +128,7 @@ export default function AccountPage() {
 
         <div className="mb-8">
           <Link
-            href="/en-us/quote"
+            href="/{locale}/quote"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/20 text-sm"
           >
             <FileText className="h-4 w-4" />
@@ -146,7 +149,7 @@ export default function AccountPage() {
               <p className="text-gray-400 font-medium">No quotes yet</p>
               <p className="text-sm text-gray-500 mt-1">Your quote requests will appear here</p>
               <Link
-                href="/en-us/quote"
+                href="/{locale}/quote"
                 className="inline-flex items-center gap-2 mt-4 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
               >
                 Request your first quote <ArrowRight className="h-3.5 w-3.5" />
