@@ -13,9 +13,10 @@ export async function POST(req: NextRequest) {
 
     const { error } = await supabase
       .from('newsletter_subscribers')
-      .upsert({ email }, { onConflict: 'email', ignoreDuplicates: true });
+      .insert({ email });
 
-    if (error) throw error;
+    // 23505 = unique_violation — already subscribed, treat as success
+    if (error && error.code !== '23505') throw error;
 
     return NextResponse.json({ success: true });
   } catch (err) {
