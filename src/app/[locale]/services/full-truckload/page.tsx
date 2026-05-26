@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Truck, CheckCircle, Clock, Shield, DollarSign } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+
+export const metadata: Metadata = {
+  title: 'Full Truckload (FTL) Freight',
+  description: 'FTL shipping with a dedicated trailer — faster transit, less handling, direct delivery. Sea Road Brokerage INC connects you with vetted FTL carriers nationwide.',
+};
 
 interface PageProps {
   params: Promise<{ locale: string }>;

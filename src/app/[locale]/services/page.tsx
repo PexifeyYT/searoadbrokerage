@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import { Truck, Package, Container, Layout, Thermometer, Wrench } from 'lucide-react';
 import ServiceCard from '@/components/features/ServiceCard';
+
+export const metadata: Metadata = {
+  title: 'Freight Services',
+  description: 'Sea Road Brokerage INC offers FTL, LTL, intermodal, flatbed, temperature-controlled, and specialized freight services across North America.',
+};
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -28,13 +34,13 @@ const services = [
     icon: Layout,
     title: 'Flatbed',
     description: 'Open deck solutions for oversized, heavy, or irregularly shaped freight including construction materials and machinery.',
-    href: '/services/specialized',
+    href: '/services/flatbed',
   },
   {
     icon: Thermometer,
     title: 'Temperature Controlled',
     description: 'Refrigerated transport for perishables, pharmaceuticals, and temperature-sensitive cargo with precise monitoring.',
-    href: '/services/specialized',
+    href: '/services/temperature-controlled',
   },
   {
     icon: Wrench,

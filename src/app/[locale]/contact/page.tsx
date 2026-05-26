@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Contact Us',
+  description: 'Contact Sea Road Brokerage INC. Call (209) 920-0003 or send us a message. Located in Chowchilla, California. 24/7 dispatch support.',
+};
 import ContactForm from '@/components/forms/ContactForm';
 import Card from '@/components/ui/Card';
 

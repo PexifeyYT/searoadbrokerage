@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Wrench, AlertTriangle, Layout, Globe } from 'lucide-react';
 import Button from '@/components/ui/Button';
+
+export const metadata: Metadata = {
+  title: 'Specialized Freight Services',
+  description: 'Hazmat, oversized loads, cross-border shipping, and other specialized freight. Sea Road Brokerage INC handles complex freight with certified specialists.',
+};
 import Card from '@/components/ui/Card';
 
 interface PageProps {

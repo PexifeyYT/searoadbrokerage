@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container, DollarSign, Globe, Leaf } from 'lucide-react';
 import Button from '@/components/ui/Button';
+
+export const metadata: Metadata = {
+  title: 'Intermodal Freight Services',
+  description: 'Intermodal shipping combines rail and truck for cost-effective long-haul freight. Sea Road Brokerage INC connects you with intermodal carriers for coast-to-coast moves.',
+};
 import Card from '@/components/ui/Card';
 
 interface PageProps {

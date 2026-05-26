@@ -32,6 +32,7 @@ export default function Header({ locale }: HeaderProps) {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setMobileOpen(false);
+    window.location.href = `/${locale}`;
   };
 
   const navLink = (href: string) => `/${locale}${href}`;
@@ -46,8 +47,8 @@ export default function Header({ locale }: HeaderProps) {
     { label: 'Full Truckload (FTL)', href: '/services/full-truckload' },
     { label: 'Less Than Truckload (LTL)', href: '/services/less-than-truckload' },
     { label: 'Intermodal', href: '/services/intermodal' },
-    { label: 'Flatbed', href: '/services/specialized' },
-    { label: 'Temperature Controlled', href: '/services/specialized' },
+    { label: 'Flatbed', href: '/services/flatbed' },
+    { label: 'Temperature Controlled', href: '/services/temperature-controlled' },
     { label: 'Specialized Freight', href: '/services/specialized' },
   ];
 

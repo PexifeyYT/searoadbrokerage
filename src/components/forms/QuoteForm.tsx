@@ -260,11 +260,11 @@ export default function QuoteForm({ locale }: QuoteFormProps) {
         label={
           <span>
             I agree to the{' '}
-            <a href="#" className="text-blue-600 dark:text-blue-400 underline">
+            <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline">
               Terms of Service
             </a>{' '}
             and{' '}
-            <a href="#" className="text-blue-600 dark:text-blue-400 underline">
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline">
               Privacy Policy
             </a>
             . I consent to Sea Road Brokerage INC contacting me about this quote request.

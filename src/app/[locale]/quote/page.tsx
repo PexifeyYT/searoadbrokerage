@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import { FileText } from 'lucide-react';
 import QuoteForm from '@/components/forms/QuoteForm';
+
+export const metadata: Metadata = {
+  title: 'Request a Freight Quote',
+  description: 'Get a free freight quote from Sea Road Brokerage INC. FTL, LTL, intermodal, flatbed, and specialized freight. Response within 2 business hours.',
+};
 
 interface PageProps {
   params: Promise<{ locale: string }>;

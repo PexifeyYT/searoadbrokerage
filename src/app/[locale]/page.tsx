@@ -38,7 +38,7 @@ const services = [
     icon: Layout,
     title: 'Flatbed',
     description: 'Open flatbed solutions for oversized, heavy, or irregularly shaped freight.',
-    href: '/services/specialized',
+    href: '/services/flatbed',
     color: 'from-orange-500 to-orange-700',
     bg: 'bg-orange-500/10',
   },
@@ -46,7 +46,7 @@ const services = [
     icon: Thermometer,
     title: 'Temperature Controlled',
     description: 'Refrigerated and temperature-sensitive freight handled with precision and care.',
-    href: '/services/specialized',
+    href: '/services/temperature-controlled',
     color: 'from-sky-500 to-sky-700',
     bg: 'bg-sky-500/10',
   },
@@ -60,12 +60,34 @@ const services = [
   },
 ];
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': 'https://searoadbrokerage.vercel.app',
+  name: 'Sea Road Brokerage INC',
+  description: 'Licensed freight broker connecting shippers with vetted carriers across North America. FTL, LTL, intermodal, flatbed, temperature-controlled, and specialized freight.',
+  url: 'https://searoadbrokerage.vercel.app',
+  telephone: '209-920-0003',
+  email: 'searoadbrokerageinc@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'US',
+  },
+  areaServed: ['US', 'CA', 'MX'],
+  serviceType: ['Freight Brokerage', 'Full Truckload', 'LTL Shipping', 'Intermodal Shipping', 'Flatbed', 'Temperature Controlled', 'Hazmat', 'Cross-Border Shipping'],
+  sameAs: [],
+};
+
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   const t = await getTranslations('home');
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Hero locale={locale} />
 
       <FeatureGrid />

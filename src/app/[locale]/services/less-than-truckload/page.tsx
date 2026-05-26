@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Package, DollarSign, MapPin, Clock } from 'lucide-react';
 import Button from '@/components/ui/Button';
+
+export const metadata: Metadata = {
+  title: 'Less Than Truckload (LTL) Freight',
+  description: 'LTL freight shipping — share trailer space and pay only for what you use. Sea Road Brokerage INC finds you the best LTL rates across North America.',
+};
 import Card from '@/components/ui/Card';
 
 interface PageProps {

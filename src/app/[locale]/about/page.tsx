@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { Shield, Award, MapPin, Users, Truck, Globe } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn about Sea Road Brokerage INC — a licensed FMCSA freight broker (USDOT #4398936) serving shippers and carriers across North America with integrity.',
+};
 import Card from '@/components/ui/Card';
 import StatsCounter from '@/components/features/StatsCounter';
 import Link from 'next/link';

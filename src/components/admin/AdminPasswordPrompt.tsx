@@ -13,13 +13,14 @@ export default function AdminPasswordPrompt({ onSuccess }: AdminPasswordPromptPr
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const expected = process.env.NEXT_PUBLIC_ADMIN_ROUTE === undefined
-      ? '123456'
-      : '123456'; // checked client-side only as secondary layer
-    // In production, compare against env or a hash
-    if (password === (process.env.NEXT_PUBLIC_ADMIN_DASH_PASSWORD || '123456')) {
+    const res = await fetch('/api/admin/auth/dashboard-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    if (res.ok) {
       sessionStorage.setItem('admin_dash_verified', '1');
       onSuccess();
     } else {
@@ -35,7 +36,7 @@ export default function AdminPasswordPrompt({ onSuccess }: AdminPasswordPromptPr
             <Lock className="h-6 w-6 text-blue-600" />
           </div>
           <h2 className="text-xl font-bold text-gray-900">Dashboard Access</h2>
-          <p className="text-sm text-gray-500 mt-1">Enter your dashboard password</p>
+          <p className="text-sm text-gray-500 mt-1">Enter your dashboard password to continue</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && <Alert variant="error">{error}</Alert>}
@@ -46,6 +47,7 @@ export default function AdminPasswordPrompt({ onSuccess }: AdminPasswordPromptPr
             placeholder="Dashboard password"
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            autoFocus
           />
           <Button type="submit" className="w-full">
             Unlock Dashboard

@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { CheckCircle, DollarSign, Clock, Shield } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Become a Carrier Partner',
+  description: 'Join Sea Road Brokerage INC\'s carrier network. Competitive rates, fast payment, consistent freight volume. Apply online today.',
+};
 import CarrierApplicationForm from '@/components/forms/CarrierApplicationForm';
 import Card from '@/components/ui/Card';
 
