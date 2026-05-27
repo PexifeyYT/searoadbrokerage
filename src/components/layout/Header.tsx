@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Truck, Menu, X, ChevronDown, Phone, ArrowRight, User, LogOut } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useTranslations } from 'next-intl';
-import ThemeToggle from './ThemeToggle';
 import LanguageSelector from './LanguageSelector';
 
 interface HeaderProps {
@@ -80,7 +79,6 @@ export default function Header({ locale }: HeaderProps) {
               (209) 920-0003
             </a>
             <span className="text-gray-700">|</span>
-            <ThemeToggle />
             <LanguageSelector currentLocale={locale} />
           </div>
         </div>
@@ -280,8 +278,7 @@ export default function Header({ locale }: HeaderProps) {
                 Sign In / Register
               </Link>
             )}
-            <div className="flex items-center justify-between">
-              <ThemeToggle />
+            <div className="flex items-center justify-end">
               <LanguageSelector currentLocale={locale} />
             </div>
           </div>
