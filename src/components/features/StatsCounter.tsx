@@ -25,25 +25,21 @@ function useCountUp(target: number, duration = 2000, active: boolean) {
   return count;
 }
 
-function StatItem({ value, suffix, label, prefix, active, index }: {
-  value: number; suffix: string; label: string; prefix: string; active: boolean; index: number;
+function StatItem({ value, suffix, label, prefix, active, light }: {
+  value: number; suffix: string; label: string; prefix: string; active: boolean; light?: boolean;
 }) {
   const count = useCountUp(value, 1800, active);
   return (
-    <div
-      className="relative group text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/8 hover:border-blue-500/30 transition-all duration-300"
-      style={{ animationDelay: `${index * 0.1}s` }}
-    >
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <p className="text-4xl sm:text-5xl font-black text-white mb-2 tabular-nums">
+    <div className="text-center p-6">
+      <p className={`text-4xl sm:text-5xl font-bold mb-2 tabular-nums ${light ? 'text-gray-900' : 'text-white'}`}>
         {prefix}{count.toLocaleString()}{suffix}
       </p>
-      <p className="text-sm font-medium text-blue-300/80 uppercase tracking-widest">{label}</p>
+      <p className={`text-sm font-medium uppercase tracking-wider ${light ? 'text-gray-500' : 'text-blue-300/80'}`}>{label}</p>
     </div>
   );
 }
 
-export default function StatsCounter() {
+export default function StatsCounter({ light }: { light?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 
@@ -57,9 +53,9 @@ export default function StatsCounter() {
   }, []);
 
   return (
-    <div ref={ref} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div ref={ref} className={`grid grid-cols-2 lg:grid-cols-4 divide-x ${light ? 'divide-gray-200' : 'divide-white/10'}`}>
       {stats.map((stat, i) => (
-        <StatItem key={stat.label} {...stat} active={active} index={i} />
+        <StatItem key={stat.label} {...stat} active={active} light={light} />
       ))}
     </div>
   );
