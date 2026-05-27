@@ -10,21 +10,51 @@ function CompleteAuth() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const code = searchParams.get('code');
-    if (!code) { router.replace('/login'); return; }
-
-    supabase.auth.exchangeCodeForSession(code).then(async ({ data, error }) => {
-      if (error || !data.session) { router.replace('/login?error=oauth_failed'); return; }
-
+    const finish = async (token: string) => {
       const res = await fetch('/api/admin/auth/verify', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${data.session.access_token}`,
-        },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       });
       router.replace(res.ok ? '/admin' : '/account');
+    };
+
+    const code = searchParams.get('code');
+
+    if (code) {
+      // PKCE fallback
+      supabase.auth.exchangeCodeForSession(code).then(({ data, error }) => {
+        if (error || !data.session) router.replace('/login?error=oauth_failed');
+        else finish(data.session.access_token);
+      });
+      return;
+    }
+
+    // Implicit flow: hash fragment — Supabase fires onAuthStateChange with SIGNED_IN
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        subscription.unsubscribe();
+        finish(session.access_token);
+      }
     });
+
+    // Also check if session already processed before listener attached
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        subscription.unsubscribe();
+        finish(session.access_token);
+      }
+    });
+
+    // Timeout fallback
+    const timeout = setTimeout(() => {
+      subscription.unsubscribe();
+      router.replace('/login?error=oauth_failed');
+    }, 10000);
+
+    return () => {
+      clearTimeout(timeout);
+      subscription.unsubscribe();
+    };
   }, [router, searchParams]);
 
   return (
