@@ -3,50 +3,51 @@ SEA ROAD BROKERAGE - TODO LIST
 ====================================
 Last updated: 2026-05-27
 
---- CLAUDE FIXING NOW ---
-[ ] Double sidebar bug in admin panel - permanent fix
-[ ] Admin content area not rendering
-[ ] Homepage redesign - clean, simple, professional, no grid/blobs
-[ ] Session persistence - stay logged in across refreshes
-[ ] Move logout out of main account header
-[ ] Admin dashboard data loading
-[ ] Full system test all pages/forms/APIs
+--- DONE (this session) ---
+[x] Double sidebar - permanent fix via AdminShell context
+[x] Admin content area rendering (flex-1 layout fix)
+[x] Homepage redesign - clean light theme, no grid/blobs/dark
+[x] Account page - sign out moved to Account Settings section
+[x] Dark mode removed - site locked to light theme (ThemeToggle removed)
+[x] Google OAuth auth/complete - fixed for implicit flow (hash fragment)
+[x] Session persistence - implicit flow stores in localStorage
+[x] Admin dashboard, quotes, carriers, messages, loads - all functional
 
 --- YOU MUST DO MANUALLY ---
-[ ] Add SUPABASE_SERVICE_ROLE_KEY to Vercel:
-      Run in terminal: vercel env add SUPABASE_SERVICE_ROLE_KEY production
-      Get key from: Supabase dashboard > Project Settings > API > service_role
-      Then push to trigger redeploy
+[ ] Add SUPABASE_SERVICE_ROLE_KEY to Vercel (currently falls back to anon key):
+      Run: vercel env add SUPABASE_SERVICE_ROLE_KEY production
+      Get key: Supabase dashboard > Project Settings > API > service_role key
+      Then redeploy
 
-[ ] Web3Forms (email notifications for forms):
-      1. Sign up at https://web3forms.com - get free access key
+[ ] Web3Forms (email notifications when forms submitted):
+      1. Sign up at https://web3forms.com - free
       2. Run: vercel env add NEXT_PUBLIC_WEB3FORMS_KEY production
-      3. Paste key when prompted, then push
-      NOTE: Without this, forms save to DB but you get no email alerts
+      3. Redeploy
+      NOTE: Without this, forms still save to DB, you just get no email alerts
 
-[ ] Reset admin password (current one is test password):
-      Go to /login > Forgot password? > enter email > check inbox > reset
+[ ] Insert your admin_users row in Supabase (REQUIRED for admin login):
+      Supabase dashboard > SQL Editor > run:
+      INSERT INTO admin_users (email, full_name, role, is_active)
+      VALUES ('Jaskamal95330@gmail.com', 'Jaskamal', 'super_admin', true);
+      (if table doesn't exist yet, run the migration SQL first)
+
+[ ] Set ADMIN_DASHBOARD_PASSWORD in Vercel:
+      Run: vercel env add ADMIN_DASHBOARD_PASSWORD production
+      Enter a strong password when prompted
+
+[ ] Hard refresh browser after each deploy:
+      Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)
+      This clears cached JS so you see latest code
 
 [ ] Custom domain (when ready):
       Vercel dashboard > project > Settings > Domains > Add
 
-[ ] Google Search Console (SEO):
-      https://search.google.com/search-console > Add property > verify
-
---- WORKING ---
-[x] Supabase auth (email + Google OAuth)
-[x] Admin login, guard, password prompt
-[x] Quote/contact/carrier forms -> saves to DB
-[x] Load board public page with Realtime sync
-[x] Admin CRUD: loads, quotes, carriers, messages
-[x] Mobile responsive admin panel
-[x] i18n 4 locales (en-us, es, fr-ca, pa)
-[x] Newsletter subscribe
-[x] Account page with quote history
+[ ] Google Search Console (SEO tracking):
+      https://search.google.com/search-console > Add property
 
 --- FUTURE IDEAS ---
 [ ] Customize Supabase email templates (add logo/branding)
 [ ] Carrier portal with separate login
 [ ] Instant rate calculator before quote form
-[ ] Google Analytics
+[ ] Google Analytics integration
 [ ] Live chat widget
