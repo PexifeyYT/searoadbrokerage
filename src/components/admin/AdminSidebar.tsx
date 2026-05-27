@@ -30,10 +30,9 @@ const navItems = [
 interface AdminSidebarProps {
   mobileOpen?: boolean;
   onClose?: () => void;
-  mobileOnly?: boolean;
 }
 
-export default function AdminSidebar({ mobileOpen = false, onClose, mobileOnly = false }: AdminSidebarProps) {
+export default function AdminSidebar({ mobileOpen = false, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
 
   const inner = (
@@ -84,12 +83,10 @@ export default function AdminSidebar({ mobileOpen = false, onClose, mobileOnly =
 
   return (
     <>
-      {/* Desktop: always visible (skip when mobileOnly) */}
-      {!mobileOnly && (
-        <div className="hidden lg:flex flex-shrink-0 min-h-screen">
-          {inner}
-        </div>
-      )}
+      {/* Desktop: always visible */}
+      <div className="hidden lg:flex flex-shrink-0 min-h-screen">
+        {inner}
+      </div>
 
       {/* Mobile: drawer overlay */}
       {mobileOpen && (
