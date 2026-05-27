@@ -18,14 +18,19 @@ function ResetPasswordForm() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Supabase sends the user to this URL with access_token in the hash
-    // The browser client automatically picks up the hash and sets a session
     const checkSession = async () => {
+      // PKCE flow: Supabase sends ?code= param
+      const code = searchParams.get('code');
+      if (code) {
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        if (!error) { setSessionReady(true); return; }
+      }
+
+      // Implicit flow: token in hash, client picks it up automatically
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         setSessionReady(true);
       } else {
-        // Wait briefly for hash to be processed
         setTimeout(async () => {
           const { data: { session: s2 } } = await supabase.auth.getSession();
           if (s2) {
